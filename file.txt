@@ -1,0 +1,7 @@
+database: slack
+username: 5cpd0io2lmbi
+host: skmfsww5jlvs.us-east-2.psdb.cloud
+password: pscale_pw_sAzefNHNEt1HLrDMI5Cs75Qs1ZQifAYXGSC_rqluraQ
+
+nikhilkumargupta58+1@gmail.com\
+3RT@I^029oS*}
