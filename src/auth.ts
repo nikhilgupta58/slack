@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "./store";
 
 export const getAccessToken = (): string => {
-  const user = useSelector((state: RootState) => state.login.user);
-  if (user) {
-    return user.accesstoken;
+  const data = JSON.parse(localStorage.getItem("slack-clone"));
+  if (data.user) {
+    return data.user.accesstoken;
   }
   return null;
 };
