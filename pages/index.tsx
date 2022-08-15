@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import useLogin from "../src/hooks/useLogin";
 import { setLogin } from "../src/store/loginSlice";
 import { RootState } from "../src/store";
+import { Home } from "../src/components/Home";
 
 export default function Router() {
   const user = useSelector((state: RootState) => state.login.user);
@@ -16,12 +17,13 @@ export default function Router() {
     if (error) console.log("Auth0 Error :" + error);
     if (!authOLoading) {
       if (!auth0User) {
-        localStorage.setItem("slack-clone", "");
+        router.push("/api/auth/logout");
+        localStorage.setItem("slack-clone", "null");
         router.push("/api/auth/login");
       } else {
         const userLocalStorage = localStorage.getItem("slack-clone");
-        if (userLocalStorage != "") {
-          const data = JSON.parse(userLocalStorage);
+        const data = JSON.parse(userLocalStorage);
+        if (userLocalStorage) {
           const hours =
             Math.abs(new Date().getTime() - data.user.time) / 3600000;
           if (hours > 1) router.push("/api/auth/logout");
@@ -54,16 +56,8 @@ export default function Router() {
     );
   }
 
-  if (user)
-    return (
-      <button
-        onClick={() => {
-          router.push("/api/auth/logout");
-        }}
-      >
-        sign out
-      </button>
-    );
+
+  if (user) return <Home />;
 
   return <></>;
 }

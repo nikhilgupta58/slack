@@ -39,11 +39,13 @@ export default async function handler(req, res) {
               }
             );
           }
-          res.status(200).send({
-            accesstoken: access_token,
-            email: email,
-            username: username,
-          });
+          await db.query(
+            `select * from slack.user WHERE email = '${email}';`,
+            (err, response) => {
+              if (err) throw err;
+              res.status(200).send(response[0]);
+            }
+          );
         }
       );
     } else {
