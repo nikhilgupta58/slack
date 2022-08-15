@@ -1,6 +1,8 @@
 import React from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import useUsers from "../../../hooks/useUsers";
+import { RootState } from "../../../store";
 import { IUser } from "../../../types";
 import Avatar from "../../Avatar";
 
@@ -9,6 +11,7 @@ export default function LeftSidebar() {
     data: users,
     isLoading: isUserLoading,
   }: { data: IUser[]; isLoading: boolean } = useUsers();
+  const currnetUser = useSelector((state: RootState) => state.login.user);
   return (
     <div>
       <div className="w-[300px] h-[calc(100vh)] bg-[#3E113F] sticky top-0 text-[#fff] pt-[40px] overflow-y-scroll">
@@ -31,7 +34,10 @@ export default function LeftSidebar() {
           <div className="font-[100]">
             {Array.from({ length: 4 }, (x, id) => {
               return (
-                <div key={id} className="flex gap-[12px] px-[16px] py-[4px]">
+                <div
+                  key={id}
+                  className="flex gap-[12px] px-[16px] py-[4px] hover:bg-[#340F35]"
+                >
                   <p>#</p>
                   <p>block-kit-blunder</p>
                 </div>
@@ -57,13 +63,24 @@ export default function LeftSidebar() {
             </>
           )}
           {users && (
-            <div className="font-[100] pt-[10px]">
-              {users?.map((user, id) => (
-                <div key={id} className="flex gap-[12px] px-[12px] py-[4px]">
-                  <Avatar user={user} type="leftbar" />
-                  <p>{user.username}</p>
-                </div>
-              ))}
+            <div className="flex flex-col gap-[8px] font-[100] pt-[10px]">
+              <div className="flex gap-[12px] px-[12px] py-[4px] cursor-pointer hover:bg-[#340F35] items-center">
+                <Avatar user={currnetUser} type="leftbar" />
+                <p>{currnetUser.username}</p>
+                <p className="text-[0.875rem] opacity-[0.5]">you</p>
+              </div>
+              {users?.map((user, id) => {
+                if (user.id == currnetUser.id) return;
+                return (
+                  <div
+                    key={id}
+                    className="flex gap-[12px] px-[12px] py-[4px] cursor-pointer hover:bg-[#340F35] items-center"
+                  >
+                    <Avatar user={user} type="leftbar" />
+                    <p>{user.username}</p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
