@@ -19,7 +19,7 @@ export default function Avatar({
         }
       : {
           box: "20px",
-          circle: "6px",
+          circle: "8px",
         };
   const online = true ? "#2ECC71" : "#fff";
   return (
@@ -32,7 +32,7 @@ export default function Avatar({
           height: size.box,
         }}
       >
-        <p className="text-[#fff] text-[12px]">{initialLetter}</p>
+        <p className="text-[#fff] text-[12px] font-bold">{initialLetter}</p>
         <div
           className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
           style={{

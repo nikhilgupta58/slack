@@ -2,22 +2,14 @@ import axios, { AxiosInstance } from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 
-export const getAccessToken = (): string => {
-  const data = JSON.parse(localStorage.getItem("slack-clone"));
-  if (data.user) {
-    return data.user.accesstoken;
-  }
-  return null;
-};
-
 let authAxios: AxiosInstance;
 
 /**
  * Generates axios instance for authenticated API calls
  */
 export const getProtectedAxios = () => {
-  const access_token = getAccessToken();
-
+  const data = JSON.parse(localStorage.getItem("slack-clone"));
+  const access_token = data?.user?.access_token;
   if (access_token && authAxios) {
     authAxios.defaults.headers = {
       //@ts-ignore
