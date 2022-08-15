@@ -49,6 +49,13 @@ export default function LeftSidebar() {
               Direct messages
             </p>
           </div>
+          {isUserLoading && (
+            <>
+              {Array.from({ length: 2 }, (x, id) => (
+                <div className="animate-pulse h-[30px] bg-[#572558] mt-[10px] mr-[20px] rounded-md" />
+              ))}
+            </>
+          )}
           {users && (
             <div className="font-[100] pt-[10px]">
               {users?.map((user, id) => (

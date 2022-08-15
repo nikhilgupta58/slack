@@ -36,7 +36,7 @@ export default function Router() {
         }
       }
     }
-  }, [auth0User, authOLoading, isLoading]);
+  }, [authOLoading]);
 
   React.useEffect(() => {
     if (!isLoading && data) {

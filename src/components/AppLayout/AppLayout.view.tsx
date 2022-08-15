@@ -6,7 +6,12 @@ import { useAppLayoutContext } from "./utils/context";
 export default function AppLayoutView() {
   const { children } = useAppLayoutContext();
   return (
-    <div className="min-h-[100vh] w-[100vw] flex">
+    <div
+      className="min-h-[100vh] w-[100vw] flex"
+      style={{
+        fontFamily: "'Space Grotesk', sans-serif",
+      }}
+    >
       <Topbar />
       <LeftSidebar />
       <div className="pt-[40px]">{children}</div>
