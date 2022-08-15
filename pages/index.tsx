@@ -27,7 +27,10 @@ export default function Router() {
           const hours =
             Math.abs(new Date().getTime() - data.user.time) / 3600000;
           if (hours > 1) router.push("/api/auth/logout");
-          else dispatch(setLogin(data));
+          else {
+            dispatch(setLogin(data));
+            router.push("/client/" + data.user.id);
+          }
         } else {
           mutate({
             email: auth0User?.email,
@@ -45,6 +48,7 @@ export default function Router() {
         "slack-clone",
         JSON.stringify({ user: { ...data, time: new Date().getTime() } })
       );
+      router.push("/client/" + data.id);
     }
   }, [isLoading, data]);
 

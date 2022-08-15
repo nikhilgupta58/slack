@@ -7,7 +7,7 @@ export default function Avatar({
   type,
 }: {
   user: IUser;
-  type: "topbar" | "leftbar";
+  type: "topbar" | "leftbar" | "textarea" | "profile";
 }) {
   const initialLetter = user?.username.charAt(0).toUpperCase();
   const bgColor = getColor(initialLetter);
@@ -17,9 +17,19 @@ export default function Avatar({
           box: "24px",
           circle: "8px",
         }
-      : {
+      : type == "leftbar"
+      ? {
           box: "20px",
           circle: "8px",
+        }
+      : type == "textarea"
+      ? {
+          box: "36px",
+          circle: "0px",
+        }
+      : {
+          box: "40px",
+          circle: "0px",
         };
   const online = true ? "#2ECC71" : "#fff";
   return (
@@ -33,14 +43,16 @@ export default function Avatar({
         }}
       >
         <p className="text-[#fff] text-[12px] font-bold">{initialLetter}</p>
-        <div
-          className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
-          style={{
-            backgroundColor: online,
-            width: size.circle,
-            height: size.circle,
-          }}
-        />
+        {type !== "textarea" && type != "profile" && (
+          <div
+            className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
+            style={{
+              backgroundColor: online,
+              width: size.circle,
+              height: size.circle,
+            }}
+          />
+        )}
       </div>
     </>
   );
