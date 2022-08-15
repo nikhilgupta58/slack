@@ -13,6 +13,7 @@ export default function Router() {
   const { user: auth0User, error, isLoading: authOLoading } = useUser();
   const { mutate, isLoading, data } = useLogin();
   React.useEffect(() => {
+    if (error) console.log("Auth0 Error :" + error);
     if (!authOLoading) {
       if (!auth0User) {
         localStorage.setItem("slack-clone", "");
@@ -45,8 +46,12 @@ export default function Router() {
     }
   }, [isLoading, data]);
 
-  if (isLoading) {
-    return <>Loading...</>;
+  if (isLoading || authOLoading) {
+    return (
+      <div className="flex w-[100vw] h-[100vh] justify-center items-center">
+        <img src="/slack-app-loader.gif" width={"200px"} />
+      </div>
+    );
   }
 
   if (user)
