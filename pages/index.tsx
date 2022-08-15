@@ -23,7 +23,7 @@ export default function Router() {
       } else {
         const userLocalStorage = localStorage.getItem("slack-clone");
         const data = JSON.parse(userLocalStorage);
-        if (userLocalStorage) {
+        if (data) {
           const hours =
             Math.abs(new Date().getTime() - data.user.time) / 3600000;
           if (hours > 1) router.push("/api/auth/logout");
@@ -55,7 +55,6 @@ export default function Router() {
       </div>
     );
   }
-
 
   if (user) return <Home />;
 

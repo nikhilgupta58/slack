@@ -25,7 +25,10 @@ export default function Avatar({
   return (
     <>
       <div
-        className={`w-[${size.box}] h-[${size.box}] rounded-[4px] bg-[${bgColor}] flex justify-center items-center relative cursor-pointer`}
+        className={`w-[${size.box}] h-[${size.box}] rounded-[4px] flex justify-center items-center relative cursor-pointer hover:opacity-[0.9]`}
+        style={{
+          backgroundColor: bgColor,
+        }}
       >
         <p className="text-[#fff] text-[12px]">{initialLetter}</p>
         <div
