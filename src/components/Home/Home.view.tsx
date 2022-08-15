@@ -1,11 +1,10 @@
 import React from "react";
-import Topbar from "../Topbar";
-import { useHomeContext } from "./utils/context";
+import { AppLayout } from "../AppLayout";
 
 export default function HomeView() {
   return (
-    <>
-    <Topbar/>
-    </>
-  )
+    <AppLayout>
+      <div className="border-[10px] w-[500px] h-[2000px] border-cyan-900" />
+    </AppLayout>
+  );
 }

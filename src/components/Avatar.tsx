@@ -25,16 +25,20 @@ export default function Avatar({
   return (
     <>
       <div
-        className={`w-[${size.box}] h-[${size.box}] rounded-[4px] flex justify-center items-center relative cursor-pointer hover:opacity-[0.9]`}
+        className={`rounded-[4px] flex justify-center items-center relative cursor-pointer hover:opacity-[0.9]`}
         style={{
           backgroundColor: bgColor,
+          width: size.box,
+          height: size.box,
         }}
       >
         <p className="text-[#fff] text-[12px]">{initialLetter}</p>
         <div
-          className={`absolute rounded-[10px] w-[${size.circle}] h-[${size.circle}] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
+          className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
           style={{
             backgroundColor: online,
+            width: size.circle,
+            height: size.circle,
           }}
         />
       </div>
