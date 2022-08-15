@@ -14,7 +14,7 @@ export default function AppLayoutView() {
     >
       <Topbar />
       <LeftSidebar />
-      <div className="pt-[40px]">{children}</div>
+      <div className="pt-[40px] w-[100%]">{children}</div>
     </div>
   );
 }
