@@ -26,7 +26,7 @@ export default function Router() {
         if (data) {
           const hours =
             Math.abs(new Date().getTime() - data.user.time) / 3600000;
-          if (hours > 1) router.push("/api/auth/logout");
+          if (hours > 10) router.push("/api/auth/logout");
           else {
             dispatch(setLogin(data));
             router.push("/client/" + data.user.id);

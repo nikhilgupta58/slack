@@ -13,6 +13,7 @@ export default function ContentView() {
     isUserDataLoading,
   }: { userData: ILogin; isUserDataLoading: boolean } = useContentContext();
 
+  const { handleChange, input, setInput } = useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
   if (isUserDataLoading) {
@@ -101,6 +102,15 @@ export default function ContentView() {
                 ? "Jot something down"
                 : `Message ${userData?.username}`
             }
+            onKeyUp={(e) => {
+              if (e.code == "Enter") {
+                handleChange();
+              }
+            }}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
           />
         </div>
       </div>

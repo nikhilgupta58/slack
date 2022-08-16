@@ -3,10 +3,11 @@ import { BsCodeSlash, BsEmojiSmile, BsTypeStrikethrough } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
 import { AiOutlineLink } from "react-icons/ai";
 import { GoListUnordered } from "react-icons/go";
+import { useContentContext } from "./Content/utils/context";
 
 export default function RichTextArea({ ...props }) {
+  const { handleChange } = useContentContext();
   const [showFormatting, setShowFormatting] = React.useState(true);
-
   React.useEffect(() => {
     const t = document?.getElementById("textarea");
     t.setAttribute(
@@ -66,7 +67,13 @@ export default function RichTextArea({ ...props }) {
             <BsEmojiSmile />
           </div>
         </div>
-        <div className="text-[20px] cursor-pointer" style={{ color: "#99A3A4 " }}>
+        <div
+          className="text-[20px] cursor-pointer"
+          style={{ color: "#99A3A4 " }}
+          onClick={() => {
+            handleChange();
+          }}
+        >
           <IoMdSend />
         </div>
       </div>

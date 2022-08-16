@@ -1,21 +1,31 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import Avatar from "../../../Avatar";
+import { useMessageBoxContext } from "./utils/context";
+
+interface IProp {
+  message: {
+    id: string;
+    text: string;
+    createdAt: string;
+  };
+  user: {
+    id: string;
+    username: string;
+    email: string;
+  };
+}
 
 export default function MessageBoxView() {
   const currentUser = useSelector((state: RootState) => state.login.user);
+  const { messages } = useMessageBoxContext();
   return (
     <>
       <Tag text={"Yestursday"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
-        <Message
-          user={currentUser}
-          text={{
-            value:
-              "Hey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnkHey sdkfnk",
-            time: new Date().getTime(),
-          }}
-        />
+        {messages?.map((row: IProp, id) => {
+          return <Message key={id} user={row.user} text={row.message} />;
+        })}
       </div>
     </>
   );
@@ -43,7 +53,7 @@ const Message = ({ user, text }) => {
         <p className="font-[600]">{user?.username}</p>
         <p
           className="font-[400]"
-          dangerouslySetInnerHTML={{ __html: text?.value }}
+          dangerouslySetInnerHTML={{ __html: text?.text }}
         />
       </div>
     </div>
