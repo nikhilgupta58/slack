@@ -91,6 +91,7 @@ export default function ContentView() {
 
         <div>
           <RichTextArea
+            key={userData?.id}
             placeholder={
               currentUser?.id == userData?.id
                 ? "Jot something down"
