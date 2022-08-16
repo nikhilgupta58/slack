@@ -7,7 +7,7 @@ export default function AppLayoutView() {
   const { children } = useAppLayoutContext();
   return (
     <div
-      className="min-h-[100vh] w-[100vw] flex"
+      className="min-h-[100vh] w-[100vw] flex overflow-x-hidden"
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
       }}
