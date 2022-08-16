@@ -1,5 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import getColor from "../colors";
+import { RootState } from "../store";
 import { IUser } from "../types";
 
 export default function Avatar({
@@ -10,6 +12,7 @@ export default function Avatar({
   type: "topbar" | "leftbar" | "textarea" | "profile";
 }) {
   const initialLetter = user?.username.charAt(0).toUpperCase();
+  const currentUser = useSelector((state: RootState) => state.login.user);
   const bgColor = getColor(initialLetter);
   const size =
     type == "topbar"
@@ -31,7 +34,7 @@ export default function Avatar({
           box: "60px",
           circle: "0px",
         };
-  const online = true ? "#007a5a" : "#fff";
+  const online = currentUser?.id == user?.id ? "#007a5a" : "#F0F3F4";
   return (
     <>
       <div

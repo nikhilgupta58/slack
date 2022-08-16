@@ -8,14 +8,12 @@ export default function RichTextArea({ ...props }) {
   const [showFormatting, setShowFormatting] = React.useState(true);
 
   React.useEffect(() => {
-    const tx = document?.getElementsByTagName("textarea");
-    for (let i = 0; i < tx.length; i++) {
-      tx[i].setAttribute(
-        "style",
-        "height:" + tx[i].scrollHeight + "px;overflow-y:hidden;"
-      );
-      tx[i].addEventListener("input", OnInput, false);
-    }
+    const t = document?.getElementById("textarea");
+    t.setAttribute(
+      "style",
+      "height:" + t.scrollHeight + "px;overflow-y:hidden;"
+    );
+    t.addEventListener("input", OnInput, false);
   }, []);
 
   function OnInput() {
@@ -48,6 +46,7 @@ export default function RichTextArea({ ...props }) {
         </div>
       )}
       <textarea
+        id="textarea"
         className="rounded-md min-h-[0px] resize-none py-[8px] px-[12px] w-[100%] active:outline-none hover:outline-none focus:outline-none overflow-y-scroll"
         {...props}
       />
