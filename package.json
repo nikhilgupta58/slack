@@ -25,6 +25,8 @@
     "react-query": "^3.39.2",
     "react-redux": "^8.0.2",
     "serverless-mysql": "^1.5.4",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

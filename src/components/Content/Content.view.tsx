@@ -4,6 +4,7 @@ import { RootState } from "../../store";
 import { ILogin } from "../../types";
 import Avatar from "../Avatar";
 import RichTextArea from "../RichTextArea";
+import { MessageBox } from "./components/MessageBox";
 import { useContentContext } from "./utils/context";
 
 export default function ContentView() {
@@ -36,7 +37,7 @@ export default function ContentView() {
           </div>
 
           <div>
-            <RichTextArea readOnly placeholder={"Loading..."}/>
+            <RichTextArea readOnly placeholder={"Loading..."} />
           </div>
         </div>
       </div>
@@ -45,14 +46,14 @@ export default function ContentView() {
 
   return (
     <div
-      className="flex w-[100%] pt-[16px] pr-[16px] pb-[24px] pl-[16px] flex-col justify-end"
+      className="flex w-[100%] flex-col justify-end"
       style={{
         minHeight: "calc(100vh - 88px)",
       }}
     >
       <div className="flex flex-col gap-[12px]">
         <div className="flex gap-[16px] flex-col ">
-          <div className="flex gap-[8px] items-center">
+          <div className="flex gap-[8px] items-center pt-[16px] pr-[16px]  pl-[16px]">
             <div>
               <Avatar user={userData} type="profile" />
             </div>
@@ -69,7 +70,7 @@ export default function ContentView() {
             </div>
           </div>
 
-          <div className="text-[0.910rem] text-[#1d1c1db3] leading-[1.4] font-normal opacity-[0.9]">
+          <div className="text-[0.910rem] text-[#1d1c1db3] leading-[1.4] font-normal opacity-[0.9] pr-[16px] pl-[16px]">
             {currentUser?.id == userData?.id ? (
               <>
                 <span className="font-[600]">This space is just for you.</span>{" "}
@@ -87,9 +88,12 @@ export default function ContentView() {
               </>
             )}
           </div>
+          <div>
+            <MessageBox />
+          </div>
         </div>
 
-        <div>
+        <div className=" pr-[16px] pb-[24px] pl-[16px]">
           <RichTextArea
             key={userData?.id}
             placeholder={
