@@ -26,7 +26,7 @@ const SocketHandler = async (req, res) => {
         try {
           const db = await initializeConnection();
           await db.query(
-            `insert into slack.message values('${message.id}','${data.user.userId}','${message.text}',current_time())`,
+            `insert into slack.message values('${message.id}','${response.user.id}','${message.text}',current_time(),'${response.receiver.id}')`,
             async (err, response) => {
               if (err) throw err;
             }

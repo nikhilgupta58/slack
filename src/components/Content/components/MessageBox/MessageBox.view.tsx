@@ -26,19 +26,27 @@ export default function MessageBoxView() {
   const { messages, userData } = useMessageBoxContext();
   const messageIdSet = new Set();
   const currentUser = useSelector((state: RootState) => state.login.user);
+
+  const arr = React.useMemo(() => {
+    return messages;
+  }, [messages]);
+
   return (
     <>
       <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
-        {messages?.map((row: IProp, id) => {
+        {arr?.map((row: IProp, id) => {
+          console.log(row);
+          console.log(userData);
+          console.log(currentUser);
           if (
-            (row.receiver.id == userData.id || row.user.id == currentUser.id) &&
-            (row.receiver.id == currentUser.id || row.user.id == userData.id)
+            (!(row.receiver.id == userData.id ||
+              row.receiver.id == currentUser.id) &&
+              (row.user.id == userData.id || row.user.id == currentUser.id)) ||
+            messageIdSet.has(row.message.id)
           )
             return <React.Fragment key={id}></React.Fragment>;
 
-          if (messageIdSet.has(row.message.id))
-            return <React.Fragment key={id}></React.Fragment>;
           messageIdSet.add(row.message.id);
           return <Message key={id} user={row.user} text={row.message} />;
         })}
