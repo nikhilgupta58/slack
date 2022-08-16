@@ -10,7 +10,6 @@ export default function UserMessage() {
   return (
     <AppLayout>
       <div className="flex w-[100%] min-h-[100vh-40px] flex-col">
-        <Navbar />
         <Content />
       </div>
     </AppLayout>
