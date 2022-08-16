@@ -62,7 +62,7 @@ export default function ContentView() {
               <p className="text-[#1d1c1d]">
                 {userData?.username}{" "}
                 <span className="ml-[5px]">
-                  {currentUser.id == userData?.id ? "(you)" : ""}
+                  {currentUser?.id == userData?.id ? "(you)" : ""}
                 </span>
               </p>
               <p className="text-[#1d1c1db3] opacity-[0.8]">
@@ -72,7 +72,7 @@ export default function ContentView() {
           </div>
 
           <div className="text-[0.910rem] text-[#1d1c1db3] leading-[1.4] font-normal opacity-[0.9]">
-            {currentUser.id == userData?.id ? (
+            {currentUser?.id == userData?.id ? (
               <>
                 <span className="font-[600]">This space is just for you.</span>{" "}
                 Jot down notes, list your to-dos, or keep links and files handy.
@@ -83,7 +83,9 @@ export default function ContentView() {
               <>
                 This conversation is just between the two of you. Here you can
                 send messages and share files with{" "}
-                <span className="bg-blue-200 p-[2px]">@{userData?.username}</span>
+                <span className="bg-blue-200 p-[2px]">
+                  @{userData?.username}
+                </span>
               </>
             )}
           </div>
