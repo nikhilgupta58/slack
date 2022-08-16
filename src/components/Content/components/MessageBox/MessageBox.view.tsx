@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
 import Avatar from "../../../Avatar";
 import { useMessageBoxContext } from "./utils/context";
+import React from 'react'
 
 interface IProp {
   message: {
@@ -17,11 +16,13 @@ interface IProp {
 }
 
 export default function MessageBoxView() {
-  const currentUser = useSelector((state: RootState) => state.login.user);
   const { messages } = useMessageBoxContext();
+  React.useEffect(()=>{
+    console.log(messages)
+  },[messages])
   return (
     <>
-      <Tag text={"Yestursday"} />
+      <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
         {messages?.map((row: IProp, id) => {
           return <Message key={id} user={row.user} text={row.message} />;

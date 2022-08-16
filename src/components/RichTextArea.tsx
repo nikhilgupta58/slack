@@ -8,22 +8,22 @@ import { useContentContext } from "./Content/utils/context";
 export default function RichTextArea({ ...props }) {
   const { handleChange } = useContentContext();
   const [showFormatting, setShowFormatting] = React.useState(true);
-  React.useEffect(() => {
-    const t = document?.getElementById("textarea");
-    t.setAttribute(
-      "style",
-      "height:" + t.scrollHeight + "px;overflow-y:hidden;"
-    );
-    t.addEventListener("input", OnInput, false);
-  }, []);
+  // React.useEffect(() => {
+  //   const t = document?.getElementById("textarea");
+  //   t.setAttribute(
+  //     "style",
+  //     "height:" + t.scrollHeight + "px;overflow-y:hidden;"
+  //   );
+  //   t.addEventListener("input", OnInput, false);
+  // }, []);
 
-  function OnInput() {
-    this.style.height = "auto";
-    if (this.scrollHeight > 300) this.style.height = "300px";
-    else this.style.height = this.scrollHeight + "px";
-  }
+  // function OnInput() {
+  //   this.style.height = "auto";
+  //   if (this.scrollHeight > 300) this.style.height = "300px";
+  //   else this.style.height = this.scrollHeight + "px";
+  // }
   return (
-    <div className="border-[2px] rounded-md w-[100%] text-[0.938rem] leading-[1.46]">
+    <div className="border-[2px] rounded-md w-[100%] text-[0.938rem] leading-[1.46] h-[200px]">
       {showFormatting && (
         <div className="opacity-[0.5] p-[4px] h-[40px] bg-gray-100 gap-2 text-[18px] flex items-center pl-[6px]">
           <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm">
@@ -48,7 +48,7 @@ export default function RichTextArea({ ...props }) {
       )}
       <textarea
         id="textarea"
-        className="rounded-md min-h-[0px] resize-none py-[8px] px-[12px] w-[100%] active:outline-none hover:outline-none focus:outline-none overflow-y-scroll"
+        className="rounded-md h-[100px] resize-none py-[8px] px-[12px] w-[100%] active:outline-none hover:outline-none focus:outline-none overflow-y-scroll"
         {...props}
       />
       <div className="px-[4px] h-[40px] m-[4px] flex gap-[4px] items-center justify-between">

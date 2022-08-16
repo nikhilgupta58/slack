@@ -15,6 +15,11 @@ export default function ContentContainer() {
   const { userId } = router.query;
   const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setMessages([]);
+  }, [userId]);
+
   const socketInitializer = async () => {
     await fetch("/api/socket");
     socket = io();
@@ -25,6 +30,8 @@ export default function ContentContainer() {
 
     socket.on("update-input", (data) => {
       let flag = false;
+      console.log(messages)
+      console.log(data.message)
       messages.map((row) => {
         if (row.id == data.message.id) {
           flag = true;

@@ -53,7 +53,12 @@ export default function ContentView() {
       }}
     >
       <div className="flex flex-col gap-[12px]">
-        <div className="flex gap-[16px] flex-col ">
+        <div
+          className="flex gap-[16px] flex-col  overflow-y-scroll"
+          style={{
+            maxHeight: "calc(100vh - 320px)",
+          }}
+        >
           <div className="flex gap-[8px] items-center pt-[16px] pr-[16px]  pl-[16px]">
             <div>
               <Avatar user={userData} type="profile" />
