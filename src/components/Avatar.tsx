@@ -7,9 +7,11 @@ import { IUser } from "../types";
 export default function Avatar({
   user,
   type,
+  isOnline = false,
 }: {
   user: IUser;
   type: "topbar" | "leftbar" | "textarea" | "profile";
+  isOnline?: boolean;
 }) {
   const initialLetter = user?.username.charAt(0).toUpperCase();
   const currentUser = useSelector((state: RootState) => state.login.user);
@@ -34,7 +36,8 @@ export default function Avatar({
           box: "60px",
           circle: "0px",
         };
-  const online = currentUser?.id == user?.id ? "#007a5a" : "#F0F3F4";
+  const online =
+    currentUser?.id == user?.id || isOnline ? "#007a5a" : "#F0F3F4";
   return (
     <>
       <div

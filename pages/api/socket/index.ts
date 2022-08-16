@@ -11,6 +11,10 @@ const SocketHandler = async (req, res) => {
     res.socket.server.io = io;
 
     io.on("connection", (socket) => {
+      socket.on("online", async (data) => {
+        socket.broadcast.emit("user-online", data);
+      });
+
       socket.on("input-change", async (data) => {
         const message = {
           id: uuid.v4(),

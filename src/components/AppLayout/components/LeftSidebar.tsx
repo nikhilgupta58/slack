@@ -16,6 +16,7 @@ export default function LeftSidebar() {
     isUserLoading,
     currnetUser,
     handleUserClick,
+    online,
   } = useAppLayoutContext();
   const { userId } = router.query;
   if (currnetUser)
@@ -101,7 +102,11 @@ export default function LeftSidebar() {
                       }}
                     >
                       <div>
-                        <Avatar user={user} type="leftbar" />
+                        <Avatar
+                          user={user}
+                          type="leftbar"
+                          isOnline={online.includes(user.id)}
+                        />
                       </div>
                       <p className="truncate">{user.username}</p>
                     </div>
