@@ -36,9 +36,6 @@ export default function MessageBoxView() {
       <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
         {arr?.map((row: IProp, id) => {
-          console.log(row);
-          console.log(userData);
-          console.log(currentUser);
           if (
             (!(row.receiver.id == userData.id ||
               row.receiver.id == currentUser.id) &&
