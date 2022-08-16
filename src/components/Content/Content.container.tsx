@@ -20,6 +20,7 @@ export default function ContentContainer() {
   const currentUser = useSelector((state: RootState) => state.login.user);
   React.useEffect(() => {
     setMessages([]);
+    setInput("");
   }, [userId]);
 
   const socketInitializer = async () => {
