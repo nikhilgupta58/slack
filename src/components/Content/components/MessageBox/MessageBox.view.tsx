@@ -1,6 +1,6 @@
 import Avatar from "../../../Avatar";
 import { useMessageBoxContext } from "./utils/context";
-import React from 'react'
+import React from "react";
 
 interface IProp {
   message: {
@@ -17,14 +17,15 @@ interface IProp {
 
 export default function MessageBoxView() {
   const { messages } = useMessageBoxContext();
-  React.useEffect(()=>{
-    console.log(messages)
-  },[messages])
+  const messageIdSet = new Set();
   return (
     <>
       <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
         {messages?.map((row: IProp, id) => {
+          if (messageIdSet.has(row.message.id))
+            return <React.Fragment key={id}></React.Fragment>;
+          messageIdSet.add(row.message.id);
           return <Message key={id} user={row.user} text={row.message} />;
         })}
       </div>

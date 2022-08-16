@@ -29,16 +29,7 @@ export default function ContentContainer() {
     });
 
     socket.on("update-input", (data) => {
-      let flag = false;
-      console.log(messages)
-      console.log(data.message)
-      messages.map((row) => {
-        if (row.id == data.message.id) {
-          flag = true;
-          return;
-        }
-      });
-      if (!flag) setMessages((messages) => [...messages, data]);
+      setMessages((messages) => [...messages, data]);
     });
   };
   React.useEffect(() => {
