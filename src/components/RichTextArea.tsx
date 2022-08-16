@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
-import { BsEmojiSmile } from "react-icons/bs";
+import { BsCodeSlash, BsEmojiSmile, BsTypeStrikethrough } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
+import { AiOutlineLink } from "react-icons/ai";
+import { GoListUnordered } from "react-icons/go";
 
 export default function RichTextArea({ ...props }) {
   const [showFormatting, setShowFormatting] = React.useState(true);
@@ -23,7 +25,28 @@ export default function RichTextArea({ ...props }) {
   }
   return (
     <div className="border-[2px] rounded-md w-[100%] text-[0.938rem] leading-[1.46]">
-      {showFormatting && <div className="p-[4px] h-[40px] bg-gray-100"></div>}
+      {showFormatting && (
+        <div className="opacity-[0.5] p-[4px] h-[40px] bg-gray-100 gap-2 text-[18px] flex items-center pl-[6px]">
+          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm">
+            B
+          </div>
+          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm">
+            <p className="italic">I</p>
+          </div>
+          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm border-r-[1px] pr-3 border-gray-400">
+            <BsTypeStrikethrough />
+          </div>
+          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm ">
+            <AiOutlineLink />
+          </div>
+          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm ">
+            <BsCodeSlash />
+          </div>
+          <div className="opacity-[0.6] font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm ">
+            <GoListUnordered />
+          </div>
+        </div>
+      )}
       <textarea
         className="rounded-md min-h-[0px] resize-none py-[8px] px-[12px] w-[100%] active:outline-none hover:outline-none focus:outline-none overflow-y-scroll"
         {...props}
