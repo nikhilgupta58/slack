@@ -66,7 +66,7 @@ export default function RichTextArea({ ...props }) {
             <BsEmojiSmile />
           </div>
         </div>
-        <div className="text-[20px]" style={{ color: "#99A3A4 " }}>
+        <div className="text-[20px] cursor-pointer" style={{ color: "#99A3A4 " }}>
           <IoMdSend />
         </div>
       </div>
