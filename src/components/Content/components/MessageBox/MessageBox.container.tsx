@@ -1,5 +1,5 @@
 import React from "react";
-import io from "Socket.IO-client";
+import io from "socket.io-client";
 import MessageBoxView from "./MessageBox.view";
 import { MessageBoxContext } from "./utils/context";
 let socket;
