@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "./Avatar";
+import { CgToolbarLeft } from "react-icons/cg";
 
 export default function Navbar({
   data,
@@ -29,11 +30,14 @@ export default function Navbar({
           boxShadow: "inset 0px -1px 0px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <div className="flex gap-[12px] px-[12px] py-[4px] cursor-pointer hover:bg-[#340F35] items-center">
+        <div className="flex gap-[12px] px-[12px] py-[4px] cursor-default items-center">
+          <div className=" text-[25px] hover:bg-gray-200 p-[2px] rounded-md cursor-pointer md:hidden ">
+            <CgToolbarLeft />
+          </div>
           <div>
             <Avatar user={data} type="topbar" />
           </div>
-          <p className="truncate">{data.username}</p>
+          <p className="truncate">{data?.username}</p>
         </div>
       </div>
     );
