@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
@@ -6,7 +7,8 @@ import { useAppLayoutContext } from "../utils/context";
 
 export default function LeftSidebar() {
   const sidebarActive = useSelector((state: RootState) => state.sidebar.active);
-
+  const openBar = {};
+  const closeBar = {};
   const {
     children,
     router,
@@ -18,12 +20,7 @@ export default function LeftSidebar() {
   const { userId } = router.query;
   if (currnetUser)
     return (
-      <div
-        // style={{
-        //   display: sidebarActive ? "inherit" : "none",
-        // }}
-        className={`${sidebarActive ? "flex" : "hidden"} md:flex`}
-      >
+      <motion.div className={`${sidebarActive ? "flex" : "hidden"} md:flex`}>
         <div className="w-[200px] h-[calc(100vh)] bg-[#3E113F] sticky top-0 text-[#fff] pt-[40px] overflow-y-scroll lg:w-[300px] md:w-[250px] sm:w-[200px]">
           <div className="border-y-[1px] border-[#743f75] py-[8px] px-[16px] hover:bg-[#340F35] h-[48px] flex items-center">
             <p className="text-[#fff] text-[1.125rem] leading-[1.369rem] font-bold tracking-[0.04em]">
@@ -114,6 +111,6 @@ export default function LeftSidebar() {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     );
 }

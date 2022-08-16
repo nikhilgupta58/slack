@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ILogin } from "../../types";
 import Avatar from "../Avatar";
+import RichTextArea from "../RichTextArea";
 import { useContentContext } from "./utils/context";
 
 export default function ContentView() {
@@ -35,10 +36,7 @@ export default function ContentView() {
           </div>
 
           <div>
-            <input
-              className="border-[1px] rounded-md w-[100%] h-[80px]"
-              readOnly
-            />
+            <RichTextArea readOnly placeholder={"Loading..."}/>
           </div>
         </div>
       </div>
@@ -92,7 +90,13 @@ export default function ContentView() {
         </div>
 
         <div>
-          <input className="border-[1px] rounded-md w-[100%] h-[80px]" />
+          <RichTextArea
+            placeholder={
+              currentUser?.id == userData?.id
+                ? "Jot something down"
+                : `Message ${userData?.username}`
+            }
+          />
         </div>
       </div>
     </div>

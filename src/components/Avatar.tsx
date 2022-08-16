@@ -31,7 +31,7 @@ export default function Avatar({
           box: "60px",
           circle: "0px",
         };
-  const online = true ? "#2ECC71" : "#fff";
+  const online = true ? "#007a5a" : "#fff";
   return (
     <>
       <div
@@ -52,7 +52,7 @@ export default function Avatar({
         </p>
         {type !== "textarea" && type != "profile" && (
           <div
-            className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}
+            className={`absolute rounded-[10px] border-[1px] border-[#340F35] top-[70%] left-[70%]`}
             style={{
               backgroundColor: online,
               width: size.circle,
