@@ -21,7 +21,7 @@ export default function LeftSidebar() {
   if (currnetUser)
     return (
       <div>
-        <div className="w-[300px] h-[calc(100vh)] bg-[#3E113F] sticky top-0 text-[#fff] pt-[40px] overflow-y-scroll">
+        <div className="w-[200px] h-[calc(100vh)] bg-[#3E113F] sticky top-0 text-[#fff] pt-[40px] overflow-y-scroll lg:w-[300px] md:w-[250px] sm:w-[200px]">
           <div className="border-y-[1px] border-[#743f75] py-[8px] px-[16px] hover:bg-[#340F35] h-[48px] flex items-center">
             <p className="text-[#fff] text-[1.125rem] leading-[1.369rem] font-bold tracking-[0.04em]">
               Organization
@@ -82,8 +82,10 @@ export default function LeftSidebar() {
                       userId == currnetUser.id ? "#1264A3" : "inherit",
                   }}
                 >
-                  <Avatar user={currnetUser} type="leftbar" />
-                  <p>{currnetUser.username}</p>
+                  <div>
+                    <Avatar user={currnetUser} type="leftbar" />
+                  </div>
+                  <p className="truncate">{currnetUser.username}</p>
                   <p className="text-[0.875rem] opacity-[0.5]">you</p>
                 </div>
                 {users?.map((user, id) => {
