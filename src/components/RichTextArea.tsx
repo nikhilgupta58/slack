@@ -33,7 +33,7 @@ export default function RichTextArea({ ...props }) {
           <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm">
             <p className="italic">I</p>
           </div>
-          <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm border-r-[1px] pr-3 border-gray-400">
+          <div className=" font-[100] leading-4 cursor-default  p-[4px] rounded-sm border-r-[1px] pr-3 border-gray-400">
             <BsTypeStrikethrough />
           </div>
           <div className=" font-[100] leading-4 cursor-default hover:bg-gray-200 p-[4px] rounded-sm ">
@@ -53,14 +53,16 @@ export default function RichTextArea({ ...props }) {
       />
       <div className="px-[4px] h-[40px] m-[4px] flex gap-[4px] items-center justify-between">
         <div className="flex items-center gap-4 text-[18px]">
-          <p
-            className="underline opacity-[0.8] font-[100] leading-4 cursor-default hover:bg-gray-100 p-[4px] rounded-sm border-r-[1px] pr-4 border-gray-400"
-            onClick={() =>
-              setShowFormatting((showFormatting) => !showFormatting)
-            }
-          >
-            Aa
-          </p>
+          <div className="border-r-[1px] pr-4 border-gray-400">
+            <p
+              className="underline opacity-[0.8] font-[100] leading-4 cursor-default hover:bg-gray-100 p-[4px] rounded-sm"
+              onClick={() =>
+                setShowFormatting((showFormatting) => !showFormatting)
+              }
+            >
+              Aa
+            </p>
+          </div>
           <div className="cursor-pointer hover:bg-gray-100 p-[4px] rounded-sm ">
             <BsEmojiSmile />
           </div>
