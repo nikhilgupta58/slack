@@ -30,8 +30,10 @@ export default function Navbar({
         }}
       >
         <div className="flex gap-[12px] px-[12px] py-[4px] cursor-pointer hover:bg-[#340F35] items-center">
-          <Avatar user={data} type="topbar" />
-          <p>{data.username}</p>
+          <div>
+            <Avatar user={data} type="topbar" />
+          </div>
+          <p className="truncate">{data.username}</p>
         </div>
       </div>
     );

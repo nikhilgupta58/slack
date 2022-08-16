@@ -98,8 +98,10 @@ export default function LeftSidebar() {
                           userId == user.id ? "#1264A3" : "inherit",
                       }}
                     >
-                      <Avatar user={user} type="leftbar" />
-                      <p>{user.username}</p>
+                      <div>
+                        <Avatar user={user} type="leftbar" />
+                      </div>
+                      <p className="truncate">{user.username}</p>
                     </div>
                   );
                 })}
