@@ -17,7 +17,11 @@ const SocketHandler = async (req, res) => {
           text: data.msg,
           createdAt: new Date(),
         };
-        const response = { message: message, user: data.user };
+        const response = {
+          message: message,
+          user: data.user,
+          receiver: data.receiver,
+        };
         socket.broadcast.emit("update-input", response);
         try {
           const db = await initializeConnection();

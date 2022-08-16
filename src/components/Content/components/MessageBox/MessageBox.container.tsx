@@ -3,9 +3,9 @@ import MessageBoxView from "./MessageBox.view";
 import { MessageBoxContext } from "./utils/context";
 
 export default function MessageBoxContainer() {
-  const {messages} = useContentContext()
+  const {messages,userData} = useContentContext()
   return (
-    <MessageBoxContext.Provider value={{messages}}>
+    <MessageBoxContext.Provider value={{messages,userData}}>
       <MessageBoxView />
     </MessageBoxContext.Provider>
   );

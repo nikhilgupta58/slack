@@ -1,6 +1,8 @@
 import Avatar from "../../../Avatar";
 import { useMessageBoxContext } from "./utils/context";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 interface IProp {
   message: {
@@ -13,16 +15,28 @@ interface IProp {
     username: string;
     email: string;
   };
+  receiver: {
+    id: string;
+    username: string;
+    email: string;
+  };
 }
 
 export default function MessageBoxView() {
-  const { messages } = useMessageBoxContext();
+  const { messages, userData } = useMessageBoxContext();
   const messageIdSet = new Set();
+  const currentUser = useSelector((state: RootState) => state.login.user);
   return (
     <>
       <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
         {messages?.map((row: IProp, id) => {
+          if (
+            (row.receiver.id == userData.id || row.user.id == currentUser.id) &&
+            (row.receiver.id == currentUser.id || row.user.id == userData.id)
+          )
+            return <React.Fragment key={id}></React.Fragment>;
+
           if (messageIdSet.has(row.message.id))
             return <React.Fragment key={id}></React.Fragment>;
           messageIdSet.add(row.message.id);
