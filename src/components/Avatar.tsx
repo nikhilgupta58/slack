@@ -28,7 +28,7 @@ export default function Avatar({
           circle: "0px",
         }
       : {
-          box: "40px",
+          box: "60px",
           circle: "0px",
         };
   const online = true ? "#2ECC71" : "#fff";
@@ -42,7 +42,14 @@ export default function Avatar({
           height: size.box,
         }}
       >
-        <p className="text-[#fff] text-[12px] font-bold">{initialLetter}</p>
+        <p
+          className="text-[#fff] font-bold"
+          style={{
+            fontSize: type == "profile" || type == "textarea" ? "20px" : "12px",
+          }}
+        >
+          {initialLetter}
+        </p>
         {type !== "textarea" && type != "profile" && (
           <div
             className={`absolute rounded-[10px] border-[#340F35] border-[2px] top-[70%] left-[70%]`}

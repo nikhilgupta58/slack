@@ -1,4 +1,5 @@
-import { initializeConnection } from "./db";
+import { initializeConnection } from "../db";
+
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const uuid = require("uuid");
@@ -6,6 +7,7 @@ const uuid = require("uuid");
 export default async function handler(req, res) {
   try {
     const db = await initializeConnection();
+    const { userId } = req.query;
     if (req.method != "GET") {
       return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
@@ -23,10 +25,13 @@ export default async function handler(req, res) {
           if (response.length == 0) {
             res.status(401).send("Unauthorized user");
           } else {
-            await db.query("select * from slack.user", (err, response) => {
-              if (err) throw err;
-              res.status(200).send(response);
-            });
+            await db.query(
+              `select * from slack.user where id = '${userId ? userId : ""}'`,
+              (err, response) => {
+                if (err) throw err;
+                res.status(200).send(response[0]);
+              }
+            );
           }
         }
       );

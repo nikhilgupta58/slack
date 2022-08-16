@@ -65,7 +65,10 @@ export default function LeftSidebar() {
             {isUserLoading && (
               <>
                 {Array.from({ length: 2 }, (x, id) => (
-                  <div className="animate-pulse h-[30px] bg-[#572558] mt-[10px] mr-[20px] rounded-md" />
+                  <div
+                    key={id}
+                    className="animate-pulse h-[30px] bg-[#572558] mt-[10px] mr-[20px] rounded-md"
+                  />
                 ))}
               </>
             )}
