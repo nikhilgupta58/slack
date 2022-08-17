@@ -54,11 +54,6 @@ export default function AppLayoutContainer({ children }) {
     socket.on("user-online", (data) => {
       if (!online.includes(data)) setOnline((online) => [...online, data]);
     });
-
-    socket.on("user-type", (data) => {
-      if (data?.author == currnetUser?.id || data?.receiver == currnetUser?.id)
-        setType((type) => [...type, data]);
-    });
   };
 
   React.useEffect(() => {
@@ -67,18 +62,30 @@ export default function AppLayoutContainer({ children }) {
 
   React.useEffect(() => {
     setInterval(() => {
-      if (socket) socket.emit("online", currnetUser?.id);
+      if (socket) {
+        socket.emit("online", currnetUser?.id);
+      }
     }, 1000);
+    if (socket) {
+      socket.on("user-type", (data) => {
+        if (
+          data?.author == currnetUser?.id ||
+          data?.receiver == currnetUser?.id
+        ) {
+          setType((type) => [...type, data]);
+        }
+      });
+    }
   }, [socket]);
 
   React.useEffect(() => {
     setInterval(() => {
       setOnline([]);
     }, 30000);
-    // setInterval(() => {
-    //   setType([]);
-    // }, 2000);
-  }, []);
+    setInterval(() => {
+      setType([]);
+    }, 2000);
+  }, [socket]);
 
   return (
     <AppLayoutContext.Provider

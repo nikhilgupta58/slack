@@ -94,7 +94,11 @@ export default function LeftSidebar() {
                   if (user.id == currnetUser.id) return;
                   let isTyping = false;
                   typing.map((type, id) => {
-                    if (type?.author == user?.id || type?.receiver == user?.id)
+                    if (
+                      (type?.author == user?.id ||
+                        type?.receiver == user?.id) &&
+                      userId != user.id
+                    )
                       isTyping = true;
                   });
                   return (
