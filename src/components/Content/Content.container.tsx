@@ -6,21 +6,20 @@ import io from "socket.io-client";
 import useGetUser from "../../hooks/useGetUser";
 import { RootState } from "../../store";
 import { setSidebar } from "../../store/sidebarSlice";
+import { useAppLayoutContext } from "../AppLayout/utils/context";
 import Navbar from "../Navbar";
 import ContentView from "./Content.view";
 import { ContentContext } from "./utils/context";
 let socket;
 
 export default function ContentContainer() {
+  const { messageRefetch } = useAppLayoutContext();
   const router = useRouter();
   const [messages, setMessages] = React.useState([]);
   const { userId } = router.query;
   const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
   const currentUser = useSelector((state: RootState) => state.login.user);
   const messageData = useSelector((state: RootState) => state.message.message);
-  const messageRefetch = useSelector(
-    (state: RootState) => state.message.refetch
-  );
   const queryClient = useQueryClient();
 
   React.useEffect(() => {

@@ -30,7 +30,7 @@ export default function AppLayoutContainer({ children }) {
 
   React.useEffect(() => {
     if (!isMessageDataLoading && messageData) {
-      dispatch(setMessage({ message: messageData, refetch: messageRefetch }));
+      dispatch(setMessage({ message: messageData }));
     }
   }, [isMessageDataLoading, messageData]);
 
@@ -76,6 +76,7 @@ export default function AppLayoutContainer({ children }) {
         currnetUser,
         handleUserClick,
         online,
+        messageRefetch,
       }}
     >
       <AppLayoutView />
