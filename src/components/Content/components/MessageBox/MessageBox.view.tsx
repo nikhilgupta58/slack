@@ -17,20 +17,16 @@ export default function MessageBoxView() {
     <>
       <div className="flex flex-col gap-[8px]" key={userData.id}>
         {arr?.map((row: IMessage, id) => {
-          if (row.userId == row.receiverId) {
-            if (row.userId != userData?.id)
-              return <React.Fragment key={id}></React.Fragment>;
-          }
-
           if (
             !(
               (row.receiverId == userData.id ||
                 row.receiverId == currentUser.id) &&
               (row.userId == userData.id || row.userId == currentUser.id)
             ) ||
+            (row.userId == row.receiverId && row.userId != userData?.id) ||
             messageIdSet.has(row.id)
           )
-            return <React.Fragment key={id}></React.Fragment>;
+            return <React.Fragment key={row.id} />;
           messageIdSet.add(row.id);
           const user = row.userId == currentUser?.id ? currentUser : userData;
           const msgTime = new Date(row.createdAt).toLocaleDateString();
@@ -42,7 +38,7 @@ export default function MessageBoxView() {
             <>
               {showTag && <Tag text={text} />}
               <Message
-                key={id}
+                key={row.id}
                 user={user}
                 text={row.text}
                 time={row.createdAt}
