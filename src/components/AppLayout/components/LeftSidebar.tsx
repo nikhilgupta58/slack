@@ -17,6 +17,7 @@ export default function LeftSidebar() {
     currnetUser,
     handleUserClick,
     online,
+    typing,
   } = useAppLayoutContext();
   const { userId } = router.query;
   if (currnetUser)
@@ -40,7 +41,7 @@ export default function LeftSidebar() {
             </div>
 
             <div className="font-[100]">
-              {Array.from({ length: 4 }, (x, id) => {
+              {/* {Array.from({ length: 4 }, (x, id) => {
                 return (
                   <div
                     key={id}
@@ -50,7 +51,7 @@ export default function LeftSidebar() {
                     <p>block-kit-blunder</p>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
 
@@ -91,6 +92,11 @@ export default function LeftSidebar() {
                 </div>
                 {users?.map((user, id) => {
                   if (user.id == currnetUser.id) return;
+                  let isTyping = false;
+                  typing.map((type, id) => {
+                    if (type?.author == user?.id || type?.receiver == user?.id)
+                      isTyping = true;
+                  });
                   return (
                     <div
                       key={id}
@@ -102,11 +108,15 @@ export default function LeftSidebar() {
                       }}
                     >
                       <div>
-                        <Avatar
-                          user={user}
-                          type="leftbar"
-                          isOnline={online.includes(user.id)}
-                        />
+                        {isTyping ? (
+                          <div className="font-bold">...</div>
+                        ) : (
+                          <Avatar
+                            user={user}
+                            type="leftbar"
+                            isOnline={online.includes(user.id)}
+                          />
+                        )}
                       </div>
                       <p className="truncate">{user.username}</p>
                     </div>

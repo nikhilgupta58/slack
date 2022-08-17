@@ -65,6 +65,15 @@ export default function ContentContainer() {
       socket.emit("input-change", data);
     }
   };
+
+  const changeEvent = (e) => {
+    setInput(e);
+    socket.emit("input-type", {
+      author: currentUser?.id,
+      receiver: userData?.id,
+    });
+  };
+
   return (
     <ContentContext.Provider
       value={{
@@ -75,6 +84,7 @@ export default function ContentContainer() {
         setInput,
         messages,
         messageData,
+        changeEvent
       }}
     >
       <Navbar data={userData} type={"user"} isLoading={isUserDataLoading} />

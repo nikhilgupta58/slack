@@ -22,6 +22,7 @@ export default function AppLayoutContainer({ children }) {
   const currnetUser = useSelector((state: RootState) => state.login.user);
   const dispatch = useDispatch();
   const [online, setOnline] = React.useState([]);
+  const [type, setType] = React.useState([]);
   const {
     data: messageData,
     isLoading: isMessageDataLoading,
@@ -53,6 +54,11 @@ export default function AppLayoutContainer({ children }) {
     socket.on("user-online", (data) => {
       if (!online.includes(data)) setOnline((online) => [...online, data]);
     });
+
+    socket.on("user-type", (data) => {
+      if (data?.author == currnetUser?.id || data?.receiver == currnetUser?.id)
+        setType((type) => [...type, data]);
+    });
   };
 
   React.useEffect(() => {
@@ -69,7 +75,10 @@ export default function AppLayoutContainer({ children }) {
     setInterval(() => {
       setOnline([]);
     }, 30000);
-  }, [socket]);
+    // setInterval(() => {
+    //   setType([]);
+    // }, 2000);
+  }, []);
 
   return (
     <AppLayoutContext.Provider
@@ -82,6 +91,7 @@ export default function AppLayoutContainer({ children }) {
         handleUserClick,
         online,
         messageRefetch,
+        typing: type,
       }}
     >
       <AppLayoutView />

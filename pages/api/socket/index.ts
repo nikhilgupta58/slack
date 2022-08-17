@@ -14,6 +14,10 @@ const SocketHandler = async (req, res) => {
         socket.broadcast.emit("user-online", data);
       });
 
+      socket.on("input-type", async (data) => {
+        socket.broadcast.emit("user-type", data);
+      });
+
       socket.on("input-change", async (data) => {
         const message = {
           id: uuid.v4(),

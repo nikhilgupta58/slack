@@ -13,7 +13,7 @@ export default function ContentView() {
     isUserDataLoading,
   }: { userData: ILogin; isUserDataLoading: boolean } = useContentContext();
 
-  const { handleChange, input, setInput, messageData, messages } =
+  const { handleChange, input, setInput, messageData, messages, changeEvent } =
     useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
@@ -121,7 +121,7 @@ export default function ContentView() {
             }}
             value={input}
             onChange={(e) => {
-              setInput(e.target.value);
+              changeEvent(e.target.value);
             }}
           />
         </div>
