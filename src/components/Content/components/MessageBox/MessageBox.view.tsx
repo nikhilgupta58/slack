@@ -22,6 +22,11 @@ export default function MessageBoxView() {
         key={userData.id}
       >
         {arr?.map((row: IMessage, id) => {
+          if (row.userId == row.receiverId) {
+            if (row.userId != userData?.id)
+              return <React.Fragment key={id}></React.Fragment>;
+          }
+
           if (
             !(
               (row.receiverId == userData.id ||
