@@ -13,7 +13,7 @@ async function fetch(id: string): Promise<IMessage[]> {
 }
 
 export default function useMessage(id) {
-  const { data, isLoading } = useQuery(["/get/message", id], () => fetch(id), {
+  const { data, isLoading,refetch } = useQuery(["/get/message", id], () => fetch(id), {
     onError(err) {
       console.error(err);
     },
@@ -21,5 +21,6 @@ export default function useMessage(id) {
   return {
     data,
     isLoading,
+    refetch
   };
 }

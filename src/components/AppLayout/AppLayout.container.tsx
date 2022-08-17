@@ -22,13 +22,15 @@ export default function AppLayoutContainer({ children }) {
   const currnetUser = useSelector((state: RootState) => state.login.user);
   const dispatch = useDispatch();
   const [online, setOnline] = React.useState([]);
-  const { data: messageData, isLoading: isMessageDataLoading } = useMessage(
-    currnetUser?.id
-  );
+  const {
+    data: messageData,
+    isLoading: isMessageDataLoading,
+    refetch: messageRefetch,
+  } = useMessage(currnetUser?.id);
 
   React.useEffect(() => {
     if (!isMessageDataLoading && messageData) {
-      dispatch(setMessage({ message: messageData }));
+      dispatch(setMessage({ message: messageData, refetch: messageRefetch }));
     }
   }, [isMessageDataLoading, messageData]);
 

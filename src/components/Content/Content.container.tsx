@@ -1,16 +1,14 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useQueryClient } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import io from "socket.io-client";
 import useGetUser from "../../hooks/useGetUser";
+import { RootState } from "../../store";
 import { setSidebar } from "../../store/sidebarSlice";
 import Navbar from "../Navbar";
 import ContentView from "./Content.view";
 import { ContentContext } from "./utils/context";
-import io from "socket.io-client";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import useMessage from "../../hooks/useMessage";
-import { useQueryClient } from "react-query";
 let socket;
 
 export default function ContentContainer() {
@@ -20,10 +18,12 @@ export default function ContentContainer() {
   const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
   const currentUser = useSelector((state: RootState) => state.login.user);
   const messageData = useSelector((state: RootState) => state.message.message);
+  const messageRefetch = useSelector(
+    (state: RootState) => state.message.refetch
+  );
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
-    console.log(messageData);
     if (messageData) {
       setMessages([]);
       setMessages(messageData);
@@ -32,7 +32,7 @@ export default function ContentContainer() {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    queryClient.invalidateQueries("/get/message");
+    if (messageRefetch) messageRefetch();
     setInput("");
   }, [userId]);
 

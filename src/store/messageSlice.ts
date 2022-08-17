@@ -3,10 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface IMessageSlice {
   message: Object[];
+  refetch: () => void;
 }
 
 const initialState: IMessageSlice = {
   message: null,
+  refetch: null,
 };
 
 export const messageSlice = createSlice({
@@ -15,6 +17,7 @@ export const messageSlice = createSlice({
   reducers: {
     setMessage: (state, action: PayloadAction<IMessageSlice>) => {
       state.message = action.payload.message;
+      state.refetch = action.payload.refetch;
     },
   },
 });
