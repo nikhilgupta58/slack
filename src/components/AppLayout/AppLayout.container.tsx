@@ -7,6 +7,8 @@ import { IUser } from "../../types";
 import AppLayoutView from "./AppLayout.view";
 import { AppLayoutContext } from "./utils/context";
 import io from "socket.io-client";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../store/loginSlice";
 let socket;
 
 export default function AppLayoutContainer({ children }) {
@@ -16,11 +18,12 @@ export default function AppLayoutContainer({ children }) {
     isLoading: isUserLoading,
   }: { data: IUser[]; isLoading: boolean } = useUsers();
   const currnetUser = useSelector((state: RootState) => state.login.user);
+  const dispatch = useDispatch();
   const [online, setOnline] = React.useState([]);
   React.useEffect(() => {
-    if (!currnetUser) {
-      router.push("/");
-    }
+    const user = JSON.parse(localStorage.getItem("slack-clone"));
+    if (user) dispatch(setLogin(user));
+    else router.push("/");
   }, []);
 
   const handleUserClick = (id) => {
