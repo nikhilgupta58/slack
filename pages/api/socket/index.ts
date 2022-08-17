@@ -4,7 +4,6 @@ const uuid = require("uuid");
 
 const SocketHandler = async (req, res) => {
   if (res.socket.server.io) {
-    console.log("Socket is already running");
   } else {
     console.log("Socket is initializing");
     const io = new Server(res.socket.server);
@@ -48,9 +47,3 @@ const SocketHandler = async (req, res) => {
 };
 
 export default SocketHandler;
-
-// "id": "fb42e58c-2a62-4765-ba47-57af2ade392f",
-// "userId": "b8f20aa0-1cb2-11ed-b376-f717c75a9a10",
-// "text": "vdv",
-// "createdAt": "2022-08-16T23:24:53.000Z",
-// "receiverId": "b8f20aa0-1cb2-11ed-b376-f717c75a9a10"
