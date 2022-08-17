@@ -20,7 +20,7 @@ export default function Avatar({
     type == "topbar"
       ? {
           box: "24px",
-          circle: "8px",
+          circle: "0px",
         }
       : type == "leftbar"
       ? {
@@ -56,7 +56,7 @@ export default function Avatar({
         >
           {initialLetter}
         </p>
-        {type !== "textarea" && type != "profile" && (
+        {type !== "textarea" && type != "profile" && type != "topbar" && (
           <div
             className={`absolute rounded-[10px] border-[1px] border-[#340F35] top-[70%] left-[70%]`}
             style={{
