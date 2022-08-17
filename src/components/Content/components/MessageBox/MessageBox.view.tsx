@@ -68,7 +68,9 @@ const Tag = ({ text }: { text: string }) => {
 const Message = ({ user, text, time }) => {
   return (
     <div className="flex gap-[8px] w-[100%] pr-[16px] pl-[16px]">
-      <Avatar type="textarea" user={user} />
+      <div>
+        <Avatar type="textarea" user={user} />
+      </div>
       <div className=" text-[0.938rem] w-[100%]">
         <div className="flex gap-2 items-center">
           <p className="font-[600]">{user?.username}</p>{" "}
