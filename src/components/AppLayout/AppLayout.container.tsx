@@ -62,8 +62,13 @@ export default function AppLayoutContainer({ children }) {
   React.useEffect(() => {
     setInterval(() => {
       if (socket) socket.emit("online", currnetUser?.id);
+    }, 1000);
+  }, [socket]);
+
+  React.useEffect(() => {
+    setInterval(() => {
       setOnline([]);
-    }, 60000);
+    }, 30000);
   }, [socket]);
 
   return (
