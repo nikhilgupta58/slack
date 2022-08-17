@@ -17,13 +17,17 @@ export default function MessageBoxView() {
   return (
     <>
       <Tag text={"Today"} />
-      <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
+      <div
+        className="flex pr-[16px] pl-[16px] flex-col gap-[8px]"
+        key={userData.id}
+      >
         {arr?.map((row: IMessage, id) => {
           if (
-            (!(
-              row.receiverId == userData.id || row.receiverId == currentUser.id
-            ) &&
-              (row.userId == userData.id || row.userId == currentUser.id)) ||
+            !(
+              (row.receiverId == userData.id ||
+                row.receiverId == currentUser.id) &&
+              (row.userId == userData.id || row.userId == currentUser.id)
+            ) ||
             messageIdSet.has(row.id)
           )
             return <React.Fragment key={id}></React.Fragment>;
