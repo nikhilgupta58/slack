@@ -8,7 +8,7 @@ const generateJWT = (user: { email: string; username: string }) => {
   return token;
 };
 
-async function user_exists(db, email) {
+export async function user_exists(db, email) {
   return new Promise(function (resolve, reject) {
     db.query(
       `select * from slack.user where email = '${email}'`,
@@ -16,7 +16,7 @@ async function user_exists(db, email) {
         if (err) {
           return reject(err);
         }
-        if (rows.length == 1) resolve(true);
+        if (rows.length > 0) resolve(true);
         resolve(false);
       }
     );
@@ -51,7 +51,7 @@ async function update_user(db, { email, access_token }) {
   });
 }
 
-async function get_user(db, { email }) {
+export async function get_user(db, { email }) {
   return new Promise(function (resolve, reject) {
     db.query(
       `select * from slack.user WHERE email = '${email}';`,
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
     const user_already_exists = await user_exists(db, email).then(
       (data) => data
     );
-    if (user_already_exists) {
+    if (!user_already_exists) {
       await create_user(db, {
         username: username,
         email: email,
