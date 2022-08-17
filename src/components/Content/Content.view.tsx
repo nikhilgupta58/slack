@@ -16,6 +16,11 @@ export default function ContentView() {
   const { handleChange, input, setInput, messageData } = useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
+  React.useEffect(() => {
+    const elem = document.getElementById("data");
+    elem.scrollTop = elem.scrollHeight;
+  }, [messageData]);
+
   if (isUserDataLoading || !messageData) {
     return (
       <div
@@ -54,6 +59,7 @@ export default function ContentView() {
     >
       <div className="flex flex-col gap-[12px]">
         <div
+          id="data"
           className="flex gap-[16px] flex-col  overflow-y-scroll"
           style={{
             maxHeight: "calc(100vh - 320px)",
