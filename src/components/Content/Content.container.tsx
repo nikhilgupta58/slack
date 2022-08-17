@@ -36,6 +36,8 @@ export default function ContentContainer() {
   }, [userId]);
 
   const socketInitializer = async () => {
+    const audio = new Audio("/sound.mp3");
+
     await fetch("/api/socket");
     socket = io();
 
@@ -44,6 +46,7 @@ export default function ContentContainer() {
     });
 
     socket.on("update-input", (data) => {
+      if (data?.userId != currentUser?.id && audio) audio.play();
       setMessages((messages) => [...messages, data]);
     });
   };
@@ -84,7 +87,7 @@ export default function ContentContainer() {
         setInput,
         messages,
         messageData,
-        changeEvent
+        changeEvent,
       }}
     >
       <Navbar data={userData} type={"user"} isLoading={isUserDataLoading} />
