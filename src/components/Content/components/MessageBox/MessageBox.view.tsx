@@ -9,18 +9,13 @@ export default function MessageBoxView() {
   const { messages, userData } = useMessageBoxContext();
   const messageIdSet = new Set();
   const currentUser = useSelector((state: RootState) => state.login.user);
-
+  let time;
   const arr = React.useMemo(() => {
     return messages;
   }, [messages]);
-
   return (
     <>
-      <Tag text={"Today"} />
-      <div
-        className="flex pr-[16px] pl-[16px] flex-col gap-[8px]"
-        key={userData.id}
-      >
+      <div className="flex flex-col gap-[8px]" key={userData.id}>
         {arr?.map((row: IMessage, id) => {
           if (row.userId == row.receiverId) {
             if (row.userId != userData?.id)
@@ -38,7 +33,22 @@ export default function MessageBoxView() {
             return <React.Fragment key={id}></React.Fragment>;
           messageIdSet.add(row.id);
           const user = row.userId == currentUser?.id ? currentUser : userData;
-          return <Message key={id} user={user} text={row.text} />;
+          const msgTime = new Date(row.createdAt).toLocaleDateString();
+          const text =
+            msgTime == new Date().toLocaleDateString() ? "Today" : msgTime;
+          const showTag = msgTime == time ? false : true;
+          time = msgTime;
+          return (
+            <>
+              {showTag && <Tag text={text} />}
+              <Message
+                key={id}
+                user={user}
+                text={row.text}
+                time={row.createdAt}
+              />
+            </>
+          );
         })}
       </div>
     </>
@@ -59,12 +69,20 @@ const Tag = ({ text }: { text: string }) => {
   );
 };
 
-const Message = ({ user, text }) => {
+const Message = ({ user, text, time }) => {
   return (
-    <div className="flex gap-[8px] w-[100%]">
+    <div className="flex gap-[8px] w-[100%] pr-[16px] pl-[16px]">
       <Avatar type="textarea" user={user} />
       <div className=" text-[0.938rem] w-[100%]">
-        <p className="font-[600]">{user?.username}</p>
+        <div className="flex gap-2 items-center">
+          <p className="font-[600]">{user?.username}</p>{" "}
+          <p className="font-[200] text-[0.75rem]">
+            {new Date(time).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </p>
+        </div>
         <p className="font-[400]" dangerouslySetInnerHTML={{ __html: text }} />
       </div>
     </div>
