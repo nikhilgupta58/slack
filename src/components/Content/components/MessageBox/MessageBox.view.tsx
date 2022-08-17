@@ -3,14 +3,7 @@ import { useMessageBoxContext } from "./utils/context";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
-
-interface IProp {
-  id: string;
-  userId: string;
-  text: string;
-  createdAt: string;
-  receiverId: string;
-}
+import { IMessage } from "../../../../types";
 
 export default function MessageBoxView() {
   const { messages, userData } = useMessageBoxContext();
@@ -25,7 +18,7 @@ export default function MessageBoxView() {
     <>
       <Tag text={"Today"} />
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
-        {arr?.map((row: IProp, id) => {
+        {arr?.map((row: IMessage, id) => {
           if (
             (!(
               row.receiverId == userData.id || row.receiverId == currentUser.id

@@ -16,3 +16,11 @@ export interface IUser {
   id: string;
   email: string;
 }
+
+export interface IMessage {
+  id: string;
+  userId: string;
+  text: string;
+  createdAt: string;
+  receiverId: string;
+}

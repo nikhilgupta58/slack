@@ -9,6 +9,7 @@ import { ContentContext } from "./utils/context";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import useMessage from "../../hooks/useMessage";
 let socket;
 
 export default function ContentContainer() {
@@ -16,8 +17,8 @@ export default function ContentContainer() {
   const [messages, setMessages] = React.useState([]);
   const { userId } = router.query;
   const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
-  const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.login.user);
+  const dispatch = useDispatch();
   React.useEffect(() => {
     setMessages([]);
     setInput("");

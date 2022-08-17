@@ -13,7 +13,7 @@ export default function ContentView() {
     isUserDataLoading,
   }: { userData: ILogin; isUserDataLoading: boolean } = useContentContext();
 
-  const { handleChange, input, setInput } = useContentContext();
+  const { handleChange, input, setInput,ref } = useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
   if (isUserDataLoading) {

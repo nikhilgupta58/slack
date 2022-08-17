@@ -1,11 +1,11 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
-import useLogin from "../src/hooks/useLogin";
-import { setLogin } from "../src/store/loginSlice";
-import { RootState } from "../src/store";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Home } from "../src/components/Home";
+import useLogin from "../src/hooks/useLogin";
+import { RootState } from "../src/store";
+import { setLogin } from "../src/store/loginSlice";
 
 export default function Router() {
   const user = useSelector((state: RootState) => state.login.user);
