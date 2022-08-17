@@ -13,7 +13,9 @@ export default function Avatar({
   type: "topbar" | "leftbar" | "textarea" | "profile";
   isOnline?: boolean;
 }) {
-  const initialLetter = user?.username.charAt(0).toUpperCase();
+  const initialLetter = user?.username
+    ? user?.username?.charAt(0).toUpperCase()
+    : "^";
   const currentUser = useSelector((state: RootState) => state.login.user);
   const bgColor = getColor(initialLetter);
   const size =
