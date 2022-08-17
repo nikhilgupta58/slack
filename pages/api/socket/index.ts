@@ -22,15 +22,17 @@ const SocketHandler = async (req, res) => {
           createdAt: new Date(),
         };
         const response = {
-          message: message,
-          user: data.user,
-          receiver: data.receiver,
+          id: message.id,
+          userId: data.user.id,
+          text: data.msg,
+          createdAt: message.createdAt,
+          receiverId: data.receiver.id,
         };
         socket.broadcast.emit("update-input", response);
         try {
           const db = await initializeConnection();
           await db.query(
-            `insert into slack.message values('${message.id}','${response.user.id}','${message.text}',current_time(),'${response.receiver.id}')`,
+            `insert into slack.message values('${message.id}','${response.userId}','${message.text}',current_time(),'${response.receiverId}')`,
             async (err, response) => {
               if (err) throw err;
             }
@@ -46,3 +48,9 @@ const SocketHandler = async (req, res) => {
 };
 
 export default SocketHandler;
+
+// "id": "fb42e58c-2a62-4765-ba47-57af2ade392f",
+// "userId": "b8f20aa0-1cb2-11ed-b376-f717c75a9a10",
+// "text": "vdv",
+// "createdAt": "2022-08-16T23:24:53.000Z",
+// "receiverId": "b8f20aa0-1cb2-11ed-b376-f717c75a9a10"

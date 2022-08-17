@@ -5,21 +5,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 
 interface IProp {
-  message: {
-    id: string;
-    text: string;
-    createdAt: string;
-  };
-  user: {
-    id: string;
-    username: string;
-    email: string;
-  };
-  receiver: {
-    id: string;
-    username: string;
-    email: string;
-  };
+  id: string;
+  userId: string;
+  text: string;
+  createdAt: string;
+  receiverId: string;
 }
 
 export default function MessageBoxView() {
@@ -37,15 +27,16 @@ export default function MessageBoxView() {
       <div className="flex pr-[16px] pl-[16px] flex-col gap-[8px] ">
         {arr?.map((row: IProp, id) => {
           if (
-            (!(row.receiver.id == userData.id ||
-              row.receiver.id == currentUser.id) &&
-              (row.user.id == userData.id || row.user.id == currentUser.id)) ||
-            messageIdSet.has(row.message.id)
+            (!(
+              row.receiverId == userData.id || row.receiverId == currentUser.id
+            ) &&
+              (row.userId == userData.id || row.userId == currentUser.id)) ||
+            messageIdSet.has(row.id)
           )
             return <React.Fragment key={id}></React.Fragment>;
-
-          messageIdSet.add(row.message.id);
-          return <Message key={id} user={row.user} text={row.message} />;
+          messageIdSet.add(row.id);
+          const user = row.userId == currentUser?.id ? currentUser : userData;
+          return <Message key={id} user={user} text={row.text} />;
         })}
       </div>
     </>
@@ -72,10 +63,7 @@ const Message = ({ user, text }) => {
       <Avatar type="textarea" user={user} />
       <div className=" text-[0.938rem] w-[100%]">
         <p className="font-[600]">{user?.username}</p>
-        <p
-          className="font-[400]"
-          dangerouslySetInnerHTML={{ __html: text?.text }}
-        />
+        <p className="font-[400]" dangerouslySetInnerHTML={{ __html: text }} />
       </div>
     </div>
   );
