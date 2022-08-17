@@ -13,10 +13,10 @@ export default function ContentView() {
     isUserDataLoading,
   }: { userData: ILogin; isUserDataLoading: boolean } = useContentContext();
 
-  const { handleChange, input, setInput,ref } = useContentContext();
+  const { handleChange, input, setInput, messageData } = useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
-  if (isUserDataLoading) {
+  if (isUserDataLoading || !messageData) {
     return (
       <div
         className="flex w-[100%] pt-[16px] pr-[16px] pb-[24px] pl-[16px] flex-col justify-end"

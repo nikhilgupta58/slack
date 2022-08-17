@@ -10,6 +10,7 @@ import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import useMessage from "../../hooks/useMessage";
+import { useQueryClient } from "react-query";
 let socket;
 
 export default function ContentContainer() {
@@ -18,9 +19,20 @@ export default function ContentContainer() {
   const { userId } = router.query;
   const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
   const currentUser = useSelector((state: RootState) => state.login.user);
+  const messageData = useSelector((state: RootState) => state.message.message);
+  const queryClient = useQueryClient();
+
+  React.useEffect(() => {
+    console.log(messageData);
+    if (messageData) {
+      setMessages([]);
+      setMessages(messageData);
+    }
+  }, [messageData, userId]);
+
   const dispatch = useDispatch();
   React.useEffect(() => {
-    setMessages([]);
+    queryClient.invalidateQueries("/get/message");
     setInput("");
   }, [userId]);
 
@@ -63,6 +75,7 @@ export default function ContentContainer() {
         input,
         setInput,
         messages,
+        messageData,
       }}
     >
       <Navbar data={userData} type={"user"} isLoading={isUserDataLoading} />

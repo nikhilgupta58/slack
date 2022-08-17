@@ -10,6 +10,7 @@ import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../store/loginSlice";
 import useMessage from "../../hooks/useMessage";
+import { setMessage } from "../../store/messageSlice";
 let socket;
 
 export default function AppLayoutContainer({ children }) {
@@ -24,6 +25,13 @@ export default function AppLayoutContainer({ children }) {
   const { data: messageData, isLoading: isMessageDataLoading } = useMessage(
     currnetUser?.id
   );
+
+  React.useEffect(() => {
+    if (!isMessageDataLoading && messageData) {
+      dispatch(setMessage({ message: messageData }));
+    }
+  }, [isMessageDataLoading, messageData]);
+
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem("slack-clone"));
     if (user) dispatch(setLogin(user));
