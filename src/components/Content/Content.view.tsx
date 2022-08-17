@@ -13,13 +13,14 @@ export default function ContentView() {
     isUserDataLoading,
   }: { userData: ILogin; isUserDataLoading: boolean } = useContentContext();
 
-  const { handleChange, input, setInput, messageData } = useContentContext();
+  const { handleChange, input, setInput, messageData, messages } =
+    useContentContext();
   const currentUser = useSelector((state: RootState) => state.login.user);
 
   React.useEffect(() => {
     const elem = document.getElementById("data");
-    elem.scrollTop = elem.scrollHeight;
-  }, [messageData]);
+    if (elem) elem.scrollTop = elem.scrollHeight;
+  }, [messages]);
 
   if (isUserDataLoading || !messageData) {
     return (
