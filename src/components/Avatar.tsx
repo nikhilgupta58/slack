@@ -16,6 +16,7 @@ export default function Avatar({
   const initialLetter = user?.username
     ? user?.username?.charAt(0).toUpperCase()
     : "^";
+
   const currentUser = useSelector((state: RootState) => state.login.user);
   const bgColor = getColor(initialLetter);
   const size =
