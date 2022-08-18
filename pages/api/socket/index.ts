@@ -34,6 +34,7 @@ const SocketHandler = async (req, res) => {
           receiverId: data.receiver.id,
         };
         socket.emit("update-input", response);
+        socket.broadcast.emit("update-input", response);
         try {
           const db = await initializeConnection();
           await db.query(
