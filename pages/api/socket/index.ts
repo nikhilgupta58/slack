@@ -1,13 +1,16 @@
 import { Server } from "socket.io";
 import { initializeConnection } from "../db";
-const httpServer = require("http").createServer();
+import { createServer } from "http";
 const uuid = require("uuid");
 require("dotenv").config();
 const SocketHandler = async (req, res) => {
   if (res.socket.server.io) {
   } else {
+    const httpServer = createServer();
+    const port = parseInt(process.env.PORT) | 4000;
     console.log("Socket is initializing");
-    const io = new Server(res.socket.server);
+    const io = new Server(httpServer, {});
+    httpServer.listen(port)
     res.socket.server.io = io;
     io.on("connection", (socket) => {
       socket.on("online", async (data) => {

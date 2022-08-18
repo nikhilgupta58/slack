@@ -10,6 +10,7 @@ import { useAppLayoutContext } from "../AppLayout/utils/context";
 import Navbar from "../Navbar";
 import ContentView from "./Content.view";
 import { ContentContext } from "./utils/context";
+
 let socket;
 
 export default function ContentContainer() {
@@ -36,14 +37,13 @@ export default function ContentContainer() {
   }, [userId]);
 
   const socketInitializer = async () => {
-    await fetch("https://slack-clone-nk.herokuapp.com/api/socket");
+    await fetch("api/socket");
     socket = io();
     socket.on("connect", () => {
       console.log("connected");
     });
 
     socket.on("update-input", (data) => {
-      console.log("updateeeeeee");
       setMessages((messages) => [...messages, data]);
     });
   };
