@@ -12,7 +12,7 @@ const SocketHandler = async (req, res) => {
     console.log();
     const io = new Server(res.socket.server);
     res.socket.server.io = io;
-
+    io.listen(15795)
     io.on("connection", (socket) => {
       socket.on("online", async (data) => {
         socket.broadcast.emit("user-online", data);
