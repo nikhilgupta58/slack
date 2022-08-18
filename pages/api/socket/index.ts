@@ -1,11 +1,15 @@
 import { Server } from "socket.io";
 import { initializeConnection } from "../db";
 const uuid = require("uuid");
+require("dotenv").config();
 
 const SocketHandler = async (req, res) => {
   if (res.socket.server.io) {
   } else {
+    console.log(process.env);
+    console.log(process.env.PORT);
     console.log("Socket is initializing");
+    console.log();
     const io = new Server(res.socket.server);
     res.socket.server.io = io;
 
