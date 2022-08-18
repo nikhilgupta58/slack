@@ -11,10 +11,13 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../store/loginSlice";
 import useMessage from "../../hooks/useMessage";
 import { setMessage } from "../../store/messageSlice";
+import useGetUser from "../../hooks/useGetUser";
 let socket;
 
 export default function AppLayoutContainer({ children }) {
   const router = useRouter();
+  const { userId } = router.query;
+
   const {
     data: users,
     isLoading: isUserLoading,
@@ -28,6 +31,8 @@ export default function AppLayoutContainer({ children }) {
     isLoading: isMessageDataLoading,
     refetch: messageRefetch,
   } = useMessage(currnetUser?.id);
+
+  const { data: userData, isLoading: isUserDataLoading } = useGetUser(userId);
 
   React.useEffect(() => {
     if (!isMessageDataLoading && messageData) {
@@ -99,6 +104,9 @@ export default function AppLayoutContainer({ children }) {
         online,
         messageRefetch,
         typing: type,
+        userId,
+        userData,
+        isUserDataLoading,
       }}
     >
       <AppLayoutView />
