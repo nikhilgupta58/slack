@@ -36,17 +36,13 @@ export default function ContentContainer() {
   }, [userId]);
 
   const socketInitializer = async () => {
-    const audio = new Audio("/sound.mp3");
-
-    await fetch("/api/socket");
-    socket = io();
-
+    socket = io("/api/socket");
     socket.on("connect", () => {
       console.log("connected");
     });
 
     socket.on("update-input", (data) => {
-      if (data?.userId != currentUser?.id && audio) audio.play();
+      console.log("updateeeeeee");
       setMessages((messages) => [...messages, data]);
     });
   };
