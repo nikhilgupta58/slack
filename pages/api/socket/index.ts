@@ -20,7 +20,7 @@ const SocketHandler = async (req, res) => {
       });
 
       socket.on("input-change", async (data) => {
-        console.log(data)
+        console.log(data);
         const message = {
           id: uuid.v4(),
           text: data.msg,
@@ -33,7 +33,7 @@ const SocketHandler = async (req, res) => {
           createdAt: message.createdAt,
           receiverId: data.receiver.id,
         };
-        socket.broadcast.emit("update-input", response);
+        socket.emit("update-input", response);
         try {
           const db = await initializeConnection();
           await db.query(
