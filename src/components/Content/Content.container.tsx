@@ -36,7 +36,8 @@ export default function ContentContainer() {
   }, [userId]);
 
   const socketInitializer = async () => {
-    socket = io("/api/socket");
+    await fetch("https://slack-clone-nk.herokuapp.com/api/socket");
+    socket = io();
     socket.on("connect", () => {
       console.log("connected");
     });
