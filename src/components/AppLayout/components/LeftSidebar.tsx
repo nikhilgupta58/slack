@@ -5,6 +5,7 @@ import { RootState } from "../../../store";
 import Avatar from "../../Avatar";
 import { useAppLayoutContext } from "../utils/context";
 import { BsBroadcastPin } from "react-icons/bs";
+import React from "react";
 
 export default function LeftSidebar() {
   const sidebarActive = useSelector((state: RootState) => state.sidebar.active);
@@ -22,7 +23,16 @@ export default function LeftSidebar() {
     userId,
     userData,
     isUserDataLoading,
+    usersInfo,
+    socketInfo,
+    callPeer,
+    acceptCall,
+    receivingCall,
+    caller,
+    setReceivingCall,
   } = useAppLayoutContext();
+  let userUsername = {};
+  const [checkValue, setCheckValue] = React.useState({});
   if (currnetUser)
     return (
       <motion.div className={`${sidebarActive ? "flex" : "hidden"} md:flex`}>
@@ -99,6 +109,8 @@ export default function LeftSidebar() {
                       <p className="text-[0.875rem] opacity-[0.5]">you</p>
                     </div>
                     {users?.map((user, id) => {
+                      userUsername[user.id] = user.username;
+                      checkValue[user.id] = false;
                       if (user.id == currnetUser.id) return;
                       let isTyping = false;
                       typing.map((type, id) => {
@@ -140,7 +152,36 @@ export default function LeftSidebar() {
             </div>
           </div>
           {!isUserDataLoading && currnetUser?.id != userId && (
-            <div className="px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]">
+            <div className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]">
+              {receivingCall && (
+                <div className="absolute h-[150px] w-[100%] left-0 z-10 bottom-[8%] flex justify-center">
+                  <div className="w-[90%] h-[150px] bg-[#4792cb] rounded-lg flex flex-col items-center justify-center gap-2">
+                    <div className="text-[2.5rem] text-white">
+                      <BsBroadcastPin />
+                    </div>
+                    <div className="flex flex-col items-center gap-4">
+                      <p style={{ textAlign: "center" }}>
+                        {userUsername[socketInfo[caller]]}
+                        <br />
+                        invited you in a huddle
+                      </p>
+                      <button
+                        onClick={() => {
+                          acceptCall();
+                          let temp = checkValue;
+                          temp[socketInfo[caller]] = true;
+                          console.log(temp[socketInfo[caller]])
+                          setCheckValue(temp);
+                          setReceivingCall(null);
+                        }}
+                        className=" px-4 py-[2px] bg-[#144367] text-white rounded-md"
+                      >
+                        Start
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <div className="text-[1.5rem]">
                   <BsBroadcastPin />
@@ -149,7 +190,23 @@ export default function LeftSidebar() {
               </div>
               <div>
                 <label className="switch">
-                  <input type="checkbox" className="scale-90" />
+                  <input
+                    type="checkbox"
+                    className="scale-90"
+                    value={
+                      checkValue[userData?.id]
+                        ? checkValue[userData?.id]
+                        : false
+                    }
+                    onChange={(e) => {
+                      if (e.target.checked && usersInfo[userData.id]) {
+                        callPeer(usersInfo[userData.id]);
+                      }
+                      let temp = checkValue;
+                      temp[userData.id] = e.target.checked;
+                      setCheckValue(temp);
+                    }}
+                  />
                   <span className="slider round"></span>
                 </label>
               </div>

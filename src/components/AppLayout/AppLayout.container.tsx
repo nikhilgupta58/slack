@@ -98,17 +98,6 @@ export default function AppLayoutContainer({ children }) {
       if (!online.includes(data)) setOnline((online) => [...online, data]);
     });
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        //@ts-ignore
-        setStream(stream);
-        if (userVideo.current) {
-          //@ts-ignore
-          if (userVideo?.current) userVideo.current.srcObject = stream;
-        }
-      });
-
     socket.on("allUsers", (users) => {
       if (users?.socketid && users?.userid) {
         const temp = usersInfo;
@@ -130,6 +119,17 @@ export default function AppLayoutContainer({ children }) {
     });
   };
 
+  function giveMicAccess() {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      //@ts-ignore
+      setStream(stream);
+      if (userVideo.current) {
+        //@ts-ignore
+        if (userVideo?.current) userVideo.current.srcObject = stream;
+      }
+    });
+  }
+
   React.useEffect(() => {
     if (!socket) {
       socketInitializer();
@@ -137,6 +137,7 @@ export default function AppLayoutContainer({ children }) {
   }, []);
 
   function callPeer(id) {
+    giveMicAccess();
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -165,6 +166,7 @@ export default function AppLayoutContainer({ children }) {
   }
 
   function acceptCall() {
+    giveMicAccess();
     setCallAccepted(true);
     const peer = new Peer({
       initiator: false,
@@ -198,6 +200,13 @@ export default function AppLayoutContainer({ children }) {
         userId,
         userData,
         isUserDataLoading,
+        usersInfo,
+        socketInfo,
+        callPeer,
+        acceptCall,
+        receivingCall,
+        caller,
+        setReceivingCall
       }}
     >
       <AppLayoutView />
@@ -210,15 +219,9 @@ export default function AppLayoutContainer({ children }) {
             <button onClick={() => callPeer(usersInfo[key])}>Call {key}</button>
           );
         })}
-      </div>
-      {receivingCall && (
-        <div>
-          <h1>{socketInfo[caller]} is calling you</h1>
-          <button onClick={acceptCall}>Accept</button>
-        </div>
-      )}
-      {callAccepted && <video playsInline ref={partnerVideo} autoPlay />}
-      {stream && <video playsInline muted ref={userVideo} autoPlay />} */}
+      </div> */}
+      {callAccepted && <audio playsInline ref={partnerVideo} autoPlay />}
+      {stream && <audio controls playsInline muted ref={userVideo} autoPlay />}
     </AppLayoutContext.Provider>
   );
 }
