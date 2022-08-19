@@ -228,6 +228,7 @@ export default function AppLayoutContainer({ children }) {
   return (
     <AppLayoutContext.Provider
       value={{
+        setCallAccepted,
         children,
         router,
         users,

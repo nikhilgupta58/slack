@@ -34,6 +34,7 @@ export default function LeftSidebar() {
     callAccepted,
     value,
     setValue,
+    setCallAccepted
   } = useAppLayoutContext();
   let userUsername = {};
 
@@ -180,7 +181,9 @@ export default function LeftSidebar() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => {
-                            hangUp();
+                            setReceivingCall(false);
+                            setCallAccepted(false);
+                            setValue(false);
                           }}
                           className="font-bold px-6 py-[4px] bg-[#3d7caf] text-[#fff] rounded-[5px]"
                         >
