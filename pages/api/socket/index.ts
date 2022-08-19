@@ -23,12 +23,12 @@ const SocketHandler = async (req, res) => {
         io.to(data.to).emit("callAccepted", data.signal);
       });
 
-      socket.on("hangup", () => {
-        io.sockets.emit("disconnectUser", true);
+      socket.on("hangup", (data) => {
+        io.sockets.emit("disconnectUser", data);
       });
 
-      socket.on("removeHuddle", () => {
-        io.sockets.emit("removeReceivingCall", true);
+      socket.on("removeHuddle", (data) => {
+        io.sockets.emit("removeReceivingCall", data);
       });
 
       socket.on("online", async (data) => {

@@ -15,6 +15,7 @@ import AppLayoutView from "./AppLayout.view";
 let socket;
 
 export default function AppLayoutContainer({ children }) {
+  const [connectedUser, setConnectedUser] = React.useState([]);
   const [value, setValue] = React.useState(false);
   const router = useRouter();
   const { userId } = router.query;
@@ -118,12 +119,6 @@ export default function AppLayoutContainer({ children }) {
       setCaller(data.from);
       setCallerSignal(data.signal);
     });
-
-    socket.on("removeReceivingCall", () => {
-      setReceivingCall(false);
-      setCallAccepted(false);
-      setValue(false)
-    });
   };
 
   function giveMicAccess() {
@@ -144,12 +139,13 @@ export default function AppLayoutContainer({ children }) {
   }, []);
 
   function hangUp() {
-    socket.emit("hangup");
+    socket.emit("hangup", connectedUser);
     socket.removeListener("callAccepted");
-    socket.emit("removeHuddle");
+    socket.emit("removeHuddle", connectedUser);
   }
 
   function callPeer(id) {
+    setConnectedUser([socketInfo[id], currnetUser?.id]);
     giveMicAccess();
     const peer = new Peer({
       initiator: true,
@@ -177,15 +173,25 @@ export default function AppLayoutContainer({ children }) {
       peer.signal(signal);
     });
 
-    socket.on("disconnectUser", () => {
-      if (peer) {
-        peer.removeAllListeners();
-        peer.destroy();
+    socket.on("disconnectUser", (data) => {
+      if (data.includes(currnetUser?.id)) {
+        if (peer) {
+          peer.removeAllListeners();
+          peer.destroy();
+        }
+      }
+    });
+    socket.on("removeReceivingCall", (data) => {
+      if (data.includes(currnetUser?.id)) {
+        setReceivingCall(false);
+        setCallAccepted(false);
+        setValue(false);
       }
     });
   }
 
   function acceptCall() {
+    setConnectedUser([socketInfo[caller], currnetUser?.id]);
     giveMicAccess();
     setCallAccepted(true);
     const peer = new Peer({
@@ -201,13 +207,22 @@ export default function AppLayoutContainer({ children }) {
       //@ts-ignore
       if (partnerVideo?.current) partnerVideo.current.srcObject = stream;
     });
-    socket.on("disconnectUser", () => {
-      if (peer) {
-        peer.removeAllListeners();
-        peer.destroy();
+    socket.on("disconnectUser", (data) => {
+      if (data.includes(currnetUser?.id)) {
+        if (peer) {
+          peer.removeAllListeners();
+          peer.destroy();
+        }
       }
     });
     peer.signal(callerSignal);
+    socket.on("removeReceivingCall", (data) => {
+      if (data.includes(currnetUser?.id)) {
+        setReceivingCall(false);
+        setCallAccepted(false);
+        setValue(false);
+      }
+    });
   }
 
   return (
