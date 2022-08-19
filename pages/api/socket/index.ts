@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { initializeConnection } from "../db";
 const uuid = require("uuid");
+
 require("dotenv").config();
 const SocketHandler = async (req, res) => {
   if (res.socket.server.io) {
@@ -11,8 +12,21 @@ const SocketHandler = async (req, res) => {
     const io = new Server(res.socket.server);
     res.socket.server.io = io;
     io.on("connection", (socket) => {
+
+      socket.on("callUser", (data) => {
+        io.to(data.userToCall).emit("hey", {
+          signal: data.signalData,
+          from: data.from,
+        });
+      });
+
+      socket.on("acceptCall", (data) => {
+        io.to(data.to).emit("callAccepted", data.signal);
+      });
+
       socket.on("online", async (data) => {
         socket.broadcast.emit("user-online", data);
+        io.sockets.emit("allUsers", { socketid: socket.id, userid: data });
       });
 
       socket.on("input-type", async (data) => {
