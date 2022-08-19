@@ -138,6 +138,7 @@ export default function AppLayoutContainer({ children }) {
 
   function hangUp() {
     socket.emit("handup");
+    socket.removeListener("callAccepted");
   }
 
   function callPeer(id) {
@@ -227,18 +228,8 @@ export default function AppLayoutContainer({ children }) {
       }}
     >
       <AppLayoutView />
-      {/* <div className="flex flex-col gap-4">
-        {Object?.keys(usersInfo).map((key) => {
-          if (key === currnetUser?.id) {
-            return null;
-          }
-          return (
-            <button onClick={() => callPeer(usersInfo[key])}>Call {key}</button>
-          );
-        })}
-      </div> */}
-      {callAccepted && <audio playsInline ref={partnerVideo} autoPlay />}
-      {stream && <audio controls playsInline muted ref={userVideo} autoPlay />}
+      <audio playsInline ref={partnerVideo} autoPlay />
+      {/* <audio controls playsInline muted ref={userVideo} autoPlay /> */}
     </AppLayoutContext.Provider>
   );
 }
