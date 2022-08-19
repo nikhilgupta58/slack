@@ -12,7 +12,6 @@ const SocketHandler = async (req, res) => {
     const io = new Server(res.socket.server);
     res.socket.server.io = io;
     io.on("connection", (socket) => {
-
       socket.on("callUser", (data) => {
         io.to(data.userToCall).emit("hey", {
           signal: data.signalData,
@@ -22,6 +21,10 @@ const SocketHandler = async (req, res) => {
 
       socket.on("acceptCall", (data) => {
         io.to(data.to).emit("callAccepted", data.signal);
+      });
+
+      socket.on("handup", () => {
+        io.sockets.emit("disconnectUser", true);
       });
 
       socket.on("online", async (data) => {

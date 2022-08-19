@@ -30,6 +30,7 @@ export default function LeftSidebar() {
     receivingCall,
     caller,
     setReceivingCall,
+    hangUp,
   } = useAppLayoutContext();
   let userUsername = {};
   const [checkValue, setCheckValue] = React.useState({});
@@ -167,10 +168,10 @@ export default function LeftSidebar() {
                       </p>
                       <button
                         onClick={() => {
-                          acceptCall();
+                          acceptCall(socketInfo[caller]);
                           let temp = checkValue;
                           temp[socketInfo[caller]] = true;
-                          console.log(temp[socketInfo[caller]])
+                          console.log(temp[socketInfo[caller]]);
                           setCheckValue(temp);
                           setReceivingCall(null);
                         }}
@@ -201,7 +202,7 @@ export default function LeftSidebar() {
                     onChange={(e) => {
                       if (e.target.checked && usersInfo[userData.id]) {
                         callPeer(usersInfo[userData.id]);
-                      }
+                      } else if (!e.target.checked) hangUp();
                       let temp = checkValue;
                       temp[userData.id] = e.target.checked;
                       setCheckValue(temp);

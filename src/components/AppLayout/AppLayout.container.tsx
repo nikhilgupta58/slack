@@ -136,6 +136,10 @@ export default function AppLayoutContainer({ children }) {
     }
   }, []);
 
+  function hangUp() {
+    socket.emit("handup");
+  }
+
   function callPeer(id) {
     giveMicAccess();
     const peer = new Peer({
@@ -163,6 +167,13 @@ export default function AppLayoutContainer({ children }) {
       setCallAccepted(true);
       peer.signal(signal);
     });
+
+    socket.on("disconnectUser", () => {
+      if (peer) {
+        peer.removeAllListeners();
+        peer.destroy();
+      }
+    });
   }
 
   function acceptCall() {
@@ -181,7 +192,12 @@ export default function AppLayoutContainer({ children }) {
       //@ts-ignore
       if (partnerVideo?.current) partnerVideo.current.srcObject = stream;
     });
-
+    socket.on("disconnectUser", () => {
+      if (peer) {
+        peer.removeAllListeners();
+        peer.destroy();
+      }
+    });
     peer.signal(callerSignal);
   }
 
@@ -206,7 +222,8 @@ export default function AppLayoutContainer({ children }) {
         acceptCall,
         receivingCall,
         caller,
-        setReceivingCall
+        setReceivingCall,
+        hangUp,
       }}
     >
       <AppLayoutView />
