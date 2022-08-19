@@ -137,8 +137,9 @@ export default function AppLayoutContainer({ children }) {
   }, []);
 
   function hangUp() {
-    socket.emit("handup");
+    socket.emit("hangup");
     socket.removeListener("callAccepted");
+    setReceivingCall(false);
   }
 
   function callPeer(id) {
