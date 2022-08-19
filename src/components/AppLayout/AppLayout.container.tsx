@@ -117,6 +117,10 @@ export default function AppLayoutContainer({ children }) {
       setCaller(data.from);
       setCallerSignal(data.signal);
     });
+
+    socket.on("removeReceivingCall", () => {
+      setReceivingCall(false);
+    });
   };
 
   function giveMicAccess() {
@@ -139,7 +143,7 @@ export default function AppLayoutContainer({ children }) {
   function hangUp() {
     socket.emit("hangup");
     socket.removeListener("callAccepted");
-    setReceivingCall(false);
+    socket.emit("removeHuddle");
   }
 
   function callPeer(id) {

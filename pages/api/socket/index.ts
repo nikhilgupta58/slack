@@ -27,6 +27,10 @@ const SocketHandler = async (req, res) => {
         io.sockets.emit("disconnectUser", true);
       });
 
+      socket.on("removeHuddle", () => {
+        io.sockets.emit("removeReceivingCall", true);
+      });
+
       socket.on("online", async (data) => {
         socket.broadcast.emit("user-online", data);
         io.sockets.emit("allUsers", { socketid: socket.id, userid: data });
