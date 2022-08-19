@@ -32,8 +32,11 @@ export default function LeftSidebar() {
     setReceivingCall,
     hangUp,
     callAccepted,
+    value,
+    setValue,
   } = useAppLayoutContext();
   let userUsername = {};
+
   if (currnetUser)
     return (
       <motion.div className={`${sidebarActive ? "flex" : "hidden"} md:flex`}>
@@ -196,11 +199,12 @@ export default function LeftSidebar() {
                       <input
                         type="checkbox"
                         className="scale-90"
-                        checked={callAccepted}
+                        checked={value || callAccepted}
                         onChange={(e) => {
                           if (e.target.checked && usersInfo[userData.id]) {
                             callPeer(usersInfo[userData.id]);
                           } else if (!e.target.checked) hangUp();
+                          setValue(e.target.checked);
                         }}
                       />
                       <span className="slider round"></span>

@@ -15,6 +15,7 @@ import AppLayoutView from "./AppLayout.view";
 let socket;
 
 export default function AppLayoutContainer({ children }) {
+  const [value, setValue] = React.useState(false);
   const router = useRouter();
   const { userId } = router.query;
 
@@ -121,6 +122,7 @@ export default function AppLayoutContainer({ children }) {
     socket.on("removeReceivingCall", () => {
       setReceivingCall(false);
       setCallAccepted(false);
+      setValue(false)
     });
   };
 
@@ -232,6 +234,8 @@ export default function AppLayoutContainer({ children }) {
         setReceivingCall,
         hangUp,
         callAccepted,
+        value,
+        setValue,
       }}
     >
       <AppLayoutView />
