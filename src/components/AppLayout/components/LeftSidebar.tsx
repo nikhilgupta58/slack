@@ -34,7 +34,6 @@ export default function LeftSidebar() {
     callAccepted,
   } = useAppLayoutContext();
   let userUsername = {};
-  const [checkValue, setCheckValue] = React.useState({});
   if (currnetUser)
     return (
       <motion.div className={`${sidebarActive ? "flex" : "hidden"} md:flex`}>
@@ -112,7 +111,6 @@ export default function LeftSidebar() {
                     </div>
                     {users?.map((user, id) => {
                       userUsername[user.id] = user.username;
-                      checkValue[user.id] = false;
                       if (user.id == currnetUser.id) return;
                       let isTyping = false;
                       typing.map((type, id) => {
@@ -156,7 +154,9 @@ export default function LeftSidebar() {
           {!isUserDataLoading && (
             <div
               className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]"
-              style={{ backgroundColor: callAccepted ? "#4792cb" : "transparent" }}
+              style={{
+                backgroundColor: callAccepted ? "#4792cb" : "transparent",
+              }}
             >
               {receivingCall && (
                 <div className="absolute h-[150px] w-[100%] left-0 z-10 bottom-[8%] flex justify-center">
@@ -173,10 +173,6 @@ export default function LeftSidebar() {
                       <button
                         onClick={() => {
                           acceptCall(socketInfo[caller]);
-                          let temp = checkValue;
-                          temp[socketInfo[caller]] = true;
-                          console.log(temp[socketInfo[caller]]);
-                          setCheckValue(temp);
                           setReceivingCall(null);
                         }}
                         className=" px-4 py-[2px] bg-[#144367] text-white rounded-md"
@@ -193,25 +189,18 @@ export default function LeftSidebar() {
                     <div className="text-[1.5rem]">
                       <BsBroadcastPin />
                     </div>
-                    {userData?.username}
+                    {!callAccepted ? userData?.username : "Connected"}
                   </div>
                   <div>
                     <label className="switch">
                       <input
                         type="checkbox"
                         className="scale-90"
-                        value={
-                          checkValue[userData?.id]
-                            ? checkValue[userData?.id]
-                            : false
-                        }
+                        checked={callAccepted}
                         onChange={(e) => {
                           if (e.target.checked && usersInfo[userData.id]) {
                             callPeer(usersInfo[userData.id]);
                           } else if (!e.target.checked) hangUp();
-                          let temp = checkValue;
-                          temp[userData.id] = e.target.checked;
-                          setCheckValue(temp);
                         }}
                       />
                       <span className="slider round"></span>
