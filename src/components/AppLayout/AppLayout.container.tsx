@@ -135,6 +135,14 @@ export default function AppLayoutContainer({ children }) {
   React.useEffect(() => {
     if (!socket) {
       socketInitializer();
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        //@ts-ignore
+        setStream(stream);
+        if (userVideo.current) {
+          //@ts-ignore
+          if (userVideo?.current) userVideo.current.srcObject = stream;
+        }
+      });
     }
   }, []);
 
@@ -255,7 +263,7 @@ export default function AppLayoutContainer({ children }) {
       }}
     >
       <AppLayoutView />
-      <audio playsInline ref={partnerVideo} autoPlay />
+      <audio playsInline ref={partnerVideo} autoPlay className="hidden" />
       {/* <audio controls playsInline muted ref={userVideo} autoPlay /> */}
     </AppLayoutContext.Provider>
   );
