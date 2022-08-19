@@ -155,12 +155,7 @@ export default function LeftSidebar() {
             </div>
           </div>
           {!isUserDataLoading && (
-            <div
-              className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]"
-              style={{
-                backgroundColor: callAccepted ? "#4792cb" : "transparent",
-              }}
-            >
+            <div className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]">
               {receivingCall && (
                 <div className="absolute w-[100%] left-0 z-10 bottom-[80px] flex justify-center">
                   <div className="w-[90%] bg-[#1164A3] rounded-lg flex flex-col p-[15px] gap-4">
@@ -207,17 +202,22 @@ export default function LeftSidebar() {
               )}
               {currnetUser?.id != userId && (
                 <>
-                  <div className="flex items-center gap-2">
+                  <div
+                    className="flex items-center gap-2"
+                    style={{
+                      color: callAccepted ? "#4792cb" : "white",
+                      fontWeight: callAccepted ? "900" : "400",
+                    }}
+                  >
                     <div className="text-[1.5rem]">
                       <BsBroadcastPin />
                     </div>
                     {!callAccepted ? userData?.username : "Connected"}
                   </div>
                   <div>
-                    <label className="switch">
+                    <label className="switch rounded-[99px]">
                       <input
                         type="checkbox"
-                        className="scale-90"
                         checked={value || callAccepted}
                         onChange={(e) => {
                           if (e.target.checked && usersInfo[userData.id]) {
