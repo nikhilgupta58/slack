@@ -31,6 +31,7 @@ export default function LeftSidebar() {
     caller,
     setReceivingCall,
     hangUp,
+    callAccepted,
   } = useAppLayoutContext();
   let userUsername = {};
   const [checkValue, setCheckValue] = React.useState({});
@@ -153,7 +154,10 @@ export default function LeftSidebar() {
             </div>
           </div>
           {!isUserDataLoading && (
-            <div className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]">
+            <div
+              className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]"
+              style={{ backgroundColor: callAccepted ? "#4792cb" : "transparent" }}
+            >
               {receivingCall && (
                 <div className="absolute h-[150px] w-[100%] left-0 z-10 bottom-[8%] flex justify-center">
                   <div className="w-[90%] h-[150px] bg-[#4792cb] rounded-lg flex flex-col items-center justify-center gap-2">

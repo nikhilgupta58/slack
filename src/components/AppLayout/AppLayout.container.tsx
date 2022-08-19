@@ -120,6 +120,7 @@ export default function AppLayoutContainer({ children }) {
 
     socket.on("removeReceivingCall", () => {
       setReceivingCall(false);
+      setCallAccepted(false);
     });
   };
 
@@ -230,6 +231,7 @@ export default function AppLayoutContainer({ children }) {
         caller,
         setReceivingCall,
         hangUp,
+        callAccepted,
       }}
     >
       <AppLayoutView />
