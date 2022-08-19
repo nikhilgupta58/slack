@@ -131,7 +131,7 @@ export default function LeftSidebar() {
                           onClick={() => handleUserClick(user.id)}
                           style={{
                             backgroundColor:
-                              userId == user.id ? "#1264A3" : "inherit",
+                              userId == user.id ? "#1164A3" : "inherit",
                           }}
                         >
                           <div>
@@ -162,26 +162,45 @@ export default function LeftSidebar() {
               }}
             >
               {receivingCall && (
-                <div className="absolute h-[150px] w-[100%] left-0 z-10 bottom-[8%] flex justify-center">
-                  <div className="w-[90%] h-[150px] bg-[#4792cb] rounded-lg flex flex-col items-center justify-center gap-2">
-                    <div className="text-[2.5rem] text-white">
-                      <BsBroadcastPin />
+                <div className="absolute w-[100%] left-0 z-10 bottom-[80px] flex justify-center">
+                  <div className="w-[90%] bg-[#1164A3] rounded-lg flex flex-col p-[15px] gap-4">
+                    <div className="flex justify-between w-[100%] gap-4 text-[0.8rem]">
+                      <div className="font-[200]">
+                        <p>
+                          <span className="font-bold">
+                            {" "}
+                            {userUsername[socketInfo[caller]]
+                              ? userUsername[socketInfo[caller]]
+                              : "Someone"}
+                          </span>{" "}
+                          is inviting you to a huddle
+                        </p>
+                      </div>
+                      <div className="text-[1.2rem] text-white">
+                        <BsBroadcastPin />
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-4">
-                      <p style={{ textAlign: "center" }}>
-                        {userUsername[socketInfo[caller]]}
-                        <br />
-                        invited you in a huddle
-                      </p>
-                      <button
-                        onClick={() => {
-                          acceptCall(socketInfo[caller]);
-                          setReceivingCall(null);
-                        }}
-                        className=" px-4 py-[2px] bg-[#144367] text-white rounded-md"
-                      >
-                        Start
-                      </button>
+
+                    <div className="flex justify-end text-[0.8rem]">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            hangUp();
+                          }}
+                          className="font-bold px-6 py-[4px] bg-[#3d7caf] text-[#fff] rounded-[5px]"
+                        >
+                          Not Now
+                        </button>
+                        <button
+                          onClick={() => {
+                            acceptCall(socketInfo[caller]);
+                            setReceivingCall(null);
+                          }}
+                          className="font-bold px-6 py-[4px] bg-[#fff] text-[#1164A3] rounded-[5px]"
+                        >
+                          Join
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
