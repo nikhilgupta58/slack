@@ -152,7 +152,7 @@ export default function LeftSidebar() {
               </div>
             </div>
           </div>
-          {!isUserDataLoading && currnetUser?.id != userId && (
+          {!isUserDataLoading && (
             <div className=" px-4 py-6 border-t-[1px] border-[#743f75] flex justify-between opacity-[0.8] text-[0.9rem] leading-[1.4]">
               {receivingCall && (
                 <div className="absolute h-[150px] w-[100%] left-0 z-10 bottom-[8%] flex justify-center">
@@ -183,34 +183,38 @@ export default function LeftSidebar() {
                   </div>
                 </div>
               )}
-              <div className="flex items-center gap-2">
-                <div className="text-[1.5rem]">
-                  <BsBroadcastPin />
-                </div>
-                {userData?.username}
-              </div>
-              <div>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    className="scale-90"
-                    value={
-                      checkValue[userData?.id]
-                        ? checkValue[userData?.id]
-                        : false
-                    }
-                    onChange={(e) => {
-                      if (e.target.checked && usersInfo[userData.id]) {
-                        callPeer(usersInfo[userData.id]);
-                      } else if (!e.target.checked) hangUp();
-                      let temp = checkValue;
-                      temp[userData.id] = e.target.checked;
-                      setCheckValue(temp);
-                    }}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </div>
+              {currnetUser?.id != userId && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <div className="text-[1.5rem]">
+                      <BsBroadcastPin />
+                    </div>
+                    {userData?.username}
+                  </div>
+                  <div>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        className="scale-90"
+                        value={
+                          checkValue[userData?.id]
+                            ? checkValue[userData?.id]
+                            : false
+                        }
+                        onChange={(e) => {
+                          if (e.target.checked && usersInfo[userData.id]) {
+                            callPeer(usersInfo[userData.id]);
+                          } else if (!e.target.checked) hangUp();
+                          let temp = checkValue;
+                          temp[userData.id] = e.target.checked;
+                          setCheckValue(temp);
+                        }}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>
